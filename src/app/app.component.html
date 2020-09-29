@@ -1,0 +1,33 @@
+<div class="header">
+  <div class="header__title-block">
+    <span class="header__title-block_title">
+      <b style="color:rgb(0, 101, 177)">мед</b><b style="color:rgb(238, 63, 88)">услуги</b>
+    </span>
+  </div>
+
+  <div class="header__menu-block">
+    <div class="header__menu-block_item"
+         routerLink=""
+    >Главная</div>
+    <div class="header__menu-block_item"
+         routerLink="help"
+    >Вопросы и ответы</div>
+
+    <ng-container *ngIf="session; else unauthorizedUserMenu">
+      <div class="header__menu-block_item"
+           routerLink="profile"
+      >Мои обращения
+      </div>
+      <div class="header__menu-block_item"
+           routerLink="logout"
+      >Выйти</div>
+    </ng-container>
+    <ng-template #unauthorizedUserMenu>
+      <div class="header__menu-block_item"
+           routerLink="login"
+      >Войти</div>
+    </ng-template>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  font-family: Arial, serif;
+}
+/* Controls indents */
+/* Buttons */
+button {
+  background: #006ecb;
+  font-size: 16pt;
+  color: white;
+  border: 0;
+  border-radius: 4px;
+  margin: 5px 0;
+  padding: 10px;
+}
+button:hover {
+  background: #002f5d;
+  cursor: pointer;
+}
+/* Inputs */
+input {
+  font-size: 14pt;
+  margin: 5px 0;
+  padding: 5px;
+}
+/* Message */
+.message {
+  font-size: 11pt;
+  padding: 12px;
+  border-left: 4px solid;
+}
+.error {
+  font-size: 11pt;
+  padding: 12px;
+  border-left: 4px solid;
+  border-color: darkred;
+}
+.warning {
+  font-size: 11pt;
+  padding: 12px;
+  border-left: 4px solid;
+  border-left-color: #e59708;
+}
+.success {
+  font-size: 11pt;
+  padding: 12px;
+  border-left: 4px solid;
+  border-left-color: green;
+}
+/*# sourceMappingURL=styles.css.map */

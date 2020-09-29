@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  padding: 50px 100px;
+}
+.header__title-block {
+  width: 260px;
+  text-align: right;
+}
+.header__title-block_title {
+  font-size: 26pt;
+}
+.header__title-block_tagline {
+  font-size: 9pt;
+  color: gray;
+  font-weight: bold;
+}
+.header__menu-block {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  border-left: 1px solid gray;
+  margin-left: 20px;
+  padding-left: 20px;
+  vertical-align: middle;
+}
+.header__menu-block_item {
+  padding: 20px;
+  font-size: 14pt;
+}
+.header__menu-block_item:hover {
+  background: #0065b1;
+  color: white;
+  cursor: pointer;
+}
+/*# sourceMappingURL=app.component.css.map */

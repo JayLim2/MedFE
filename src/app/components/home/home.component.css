@@ -1,0 +1,11 @@
+.big-orange-button {
+  background: #0065b1;
+  padding: 35px;
+  font-size: 19pt;
+  color: white;
+}
+.big-orange-button:hover {
+  background: #015492;
+  cursor: pointer;
+}
+/*# sourceMappingURL=home.component.css.map */
