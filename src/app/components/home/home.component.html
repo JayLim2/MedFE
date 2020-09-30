@@ -2,19 +2,25 @@
   Мы знаем, зачем Вы пришли
 </div>
 
-<div style="margin:50px;font-size: 14pt; color: gray; text-align: center">
-  <ng-container *ngIf="userMessage; else unauthorizedUser">
+<ng-container *ngIf="userMessage; else unauthorizedUser">
+  <div style="margin:50px;font-size: 14pt; color: gray; text-align: center">
     {{userMessage}}, нажмите на эту большую кнопку, чтобы записаться на прием
-  </ng-container>
-  <ng-template #unauthorizedUser>
-    Нажмите на эту большую кнопку, чтобы записаться на прием
-  </ng-template>
-</div>
+  </div>
 
-<div style="text-align: center">
-  <button class="big-orange-button"
-          routerLink="tickets/create"
-  >
-    Записаться на прием
-  </button>
-</div>
+  <div style="text-align: center">
+    <button class="big-orange-button"
+            routerLink="tickets/create"
+    >
+      Записаться на прием
+    </button>
+  </div>
+</ng-container>
+<ng-template #unauthorizedUser>
+  <div style="text-align: center">
+    <button class="big-orange-button"
+            routerLink="login"
+    >
+      Войти в личный кабинет
+    </button>
+  </div>
+</ng-template>

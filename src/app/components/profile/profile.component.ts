@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  public selectedTab: TemplateRef<any>;
+
+  constructor(
+    public authenticationService: AuthenticationService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onTabClick(tab: TemplateRef<any>): void {
+    this.selectedTab = tab;
   }
 
 }

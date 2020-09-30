@@ -1,0 +1,32 @@
+@med-blue-color: rgb(0, 101, 177);
+@med-red-color: rgb(238, 63, 88);
+
+.tickets {
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    margin-top: 25px;
+    width: 70%;
+    border:1px solid @med-blue-color;
+    border-radius: 4px;
+    padding: 25px;
+
+    &__header {
+      color: @med-blue-color;
+      font-weight: bold;
+    }
+
+    &__content {
+      display: flex;
+
+      .data {
+        width: calc(100% - 170px);
+      }
+
+      .controls {
+        width: 150px;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container__title">
-    Вход в систему
+    Вход в личный кабинет
   </div>
   <div class="container__login-form">
     <ng-container *ngIf="authenticationResult">
@@ -13,13 +13,14 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <input type="text"
              formControlName="login"
-             placeholder="Логин"
+             placeholder="Мобильный телефон"
       />
       <input type="password"
              formControlName="password"
              placeholder="Пароль"
       >
       <button type="submit"
+              class="large"
               [disabled]="!loginForm.valid"
       >
         Войти

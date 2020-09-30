@@ -1,0 +1,25 @@
+.tickets {
+  display: flex;
+  flex-direction: column;
+}
+.tickets .item {
+  margin-top: 25px;
+  width: 70%;
+  border: 1px solid #0065b1;
+  border-radius: 4px;
+  padding: 25px;
+}
+.tickets .item__header {
+  color: #0065b1;
+  font-weight: bold;
+}
+.tickets .item__content {
+  display: flex;
+}
+.tickets .item__content .data {
+  width: calc(100% - 170px);
+}
+.tickets .item__content .controls {
+  width: 150px;
+}
+/*# sourceMappingURL=profile.component.css.map */

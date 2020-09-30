@@ -1,7 +1,10 @@
 <div class="header">
   <div class="header__title-block">
     <span class="header__title-block_title">
-      <b style="color:rgb(0, 101, 177)">мед</b><b style="color:rgb(238, 63, 88)">услуги</b>
+      <span class="header__title-block_title">
+        <b class="logo_blue">мед</b>
+        <b class="logo_red">услуги</b>
+      </span>
     </span>
   </div>
 
@@ -13,10 +16,10 @@
          routerLink="help"
     >Вопросы и ответы</div>
 
-    <ng-container *ngIf="session; else unauthorizedUserMenu">
+    <ng-container *ngIf="this.authenticationService.isAuthenticated(); else unauthorizedUserMenu">
       <div class="header__menu-block_item"
            routerLink="profile"
-      >Мои обращения
+      >Мой личный кабинет
       </div>
       <div class="header__menu-block_item"
            routerLink="logout"
