@@ -1,1 +1,41 @@
-<p>create-ticket-form works!</p>
+<div class="page">
+  <div class="page__title">
+    Записаться на прием к врачу
+  </div>
+  <div class="page__content">
+    Выберите врача и удобное время для посещения поликлиники.
+
+    <form style="display: flex; flex-direction: column">
+      <div style="display: flex; flex-direction: column; width: 60%; margin-top: 15px;">
+        Специализация врача:
+        <select>
+          <option>Терапевт</option>
+          <option>Травмотолог</option>
+          <option>Хирург</option>
+        </select>
+      </div>
+
+      <div style="display: flex; flex-direction: column; width: 60%; margin-top: 15px;">
+        Врач:
+        <select>
+          <option>Лечилов Александр Георгиевич</option>
+          <option>Кромсалов Ганнибал Лекторович</option>
+          <option>Калеченко Георгий Сигизмундович</option>
+        </select>
+      </div>
+
+      <div style="display: flex; margin-top: 20px; align-items: center">
+        <button class="medium"
+                type="submit"
+                style="width: 250px"
+        >
+          Записаться на прием
+        </button>
+        <div style="width: 50%;font-size: 11pt; color: #4c4c4c; margin-left: 20px;">
+          Будет зарегистрирован электронный талон, который сохранится в Вашем
+          личном кабинете.
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -3,9 +3,10 @@
   padding: 35px;
   font-size: 19pt;
   color: white;
+  width: 400px;
 }
 .big-orange-button:hover {
-  background: #015492;
+  background: #003965;
   cursor: pointer;
 }
 /*# sourceMappingURL=home.component.css.map */

@@ -62,6 +62,17 @@ input {
   margin: 5px 0;
   padding: 5px;
 }
+select {
+  font-size: 14pt;
+  border: 2px solid #0065b1;
+  border-radius: 4px;
+  margin: 10px 0;
+  padding: 12px;
+}
+select:hover {
+  background: #eef8ff;
+  cursor: pointer;
+}
 /* Messages */
 .message {
   font-size: 11pt;
