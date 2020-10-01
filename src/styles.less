@@ -11,6 +11,11 @@
   font-family: Arial, serif;
 }
 
+html, body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
 /* Logo */
 
@@ -89,22 +94,57 @@ button {
 
 /* Inputs */
 
-input {
-  font-size: 14pt;
-  margin: @control-margin;
-  padding: @control-padding;
-}
+@input-control-width: 400px;
 
-select {
-  font-size: 14pt;
+.input-control {
   border:2px solid rgb(0, 101, 177);
+  font-size: 14pt;
   border-radius: 4px;
   margin:10px 0;
   padding: 12px;
+  width: @input-control-width;
 
   &:hover {
     background: lighten(rgb(187, 225, 255), 10%);
     cursor:pointer;
+  }
+}
+
+input, select {
+  .input-control;
+}
+
+input[type="datetime-local"] {
+  width: @input-control-width - 28px;
+}
+
+.form-field {
+  display: flex;
+  width: 70%;
+  margin-top: 20px;
+  align-items: center;
+
+  &__control-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info {
+    font-size: 10.5pt;
+    color: #4c4c4c;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 1px solid @med-blue-color;
+  }
+
+  &__hint {
+    .info;
+
+    &:before {
+      font-weight: bold;
+      color: @med-blue-color;
+      content: 'Подсказка.';
+    }
   }
 }
 

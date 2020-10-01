@@ -6,32 +6,56 @@
     Выберите врача и удобное время для посещения поликлиники.
 
     <form style="display: flex; flex-direction: column">
-      <div style="display: flex; flex-direction: column; width: 60%; margin-top: 15px;">
-        Специализация врача:
-        <select>
-          <option>Терапевт</option>
-          <option>Травмотолог</option>
-          <option>Хирург</option>
-        </select>
+      <div class="form-field">
+        <div class="form-field__control-container">
+          Специализация врача:
+          <select>
+            <option>Любая</option>
+            <option>Терапевт</option>
+            <option>Травмотолог</option>
+            <option>Хирург</option>
+          </select>
+        </div>
+
+        <div class="form-field__hint">
+          Выберите "Любая", если знаете только имя врача.
+          Будет показан список всех врачей поликлиники.
+        </div>
       </div>
 
-      <div style="display: flex; flex-direction: column; width: 60%; margin-top: 15px;">
-        Врач:
-        <select>
-          <option>Лечилов Александр Георгиевич</option>
-          <option>Кромсалов Ганнибал Лекторович</option>
-          <option>Калеченко Георгий Сигизмундович</option>
-        </select>
+      <div class="form-field">
+        <div class="form-field__control-container">
+          Врач:
+          <select>
+            <option>Лечилов Александр Георгиевич</option>
+            <option>Кромсалов Ганнибал Лекторович</option>
+            <option>Калеченко Георгий Сигизмундович</option>
+          </select>
+        </div>
       </div>
 
-      <div style="display: flex; margin-top: 20px; align-items: center">
+      <div class="form-field">
+        <div class="form-field__control-container">
+          Дата и время приема:
+          <input type="datetime-local" />
+        </div>
+
+        <div class="form-field__hint">
+          Если ячейка календаря выделена серым цветом, значит это выходной день,
+          талоны закончились или врач не принимиает в выбранное время.
+          <br/><br/>
+          <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 100%">
         <button class="medium"
                 type="submit"
                 style="width: 250px"
         >
           Записаться на прием
         </button>
-        <div style="width: 50%;font-size: 11pt; color: #4c4c4c; margin-left: 20px;">
+        <div class="info">
           Будет зарегистрирован электронный талон, который сохранится в Вашем
           личном кабинете.
         </div>

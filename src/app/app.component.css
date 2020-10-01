@@ -1,7 +1,16 @@
+/* Main colors */
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.body {
+  flex: 1 0 auto;
+}
 .header {
   display: flex;
   flex-direction: row;
-  padding: 50px 100px;
+  padding: 50px 100px 20px 100px;
 }
 .header__title-block {
   width: 260px;
@@ -21,7 +30,7 @@
   width: auto;
   border-left: 1px solid gray;
   margin-left: 20px;
-  padding-left: 20px;
+  padding-right: 20px;
   vertical-align: middle;
 }
 .header__menu-block_item {
@@ -32,5 +41,12 @@
   background: #0065b1;
   color: white;
   cursor: pointer;
+}
+.footer {
+  background: #0065b1;
+  padding: 30px 170px;
+  margin: 40px 0 0 0;
+  color: white;
+  font-size: 11pt;
 }
 /*# sourceMappingURL=app.component.css.map */

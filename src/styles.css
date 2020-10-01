@@ -3,6 +3,12 @@
 * {
   font-family: Arial, serif;
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 /* Logo */
 .logo_blue {
   color: #0065b1;
@@ -57,21 +63,63 @@ button.large {
   font-size: 16pt;
 }
 /* Inputs */
-input {
-  font-size: 14pt;
-  margin: 5px 0;
-  padding: 5px;
-}
-select {
-  font-size: 14pt;
+.input-control {
   border: 2px solid #0065b1;
+  font-size: 14pt;
   border-radius: 4px;
   margin: 10px 0;
   padding: 12px;
+  width: 400px;
 }
+.input-control:hover {
+  background: #eef8ff;
+  cursor: pointer;
+}
+input,
+select {
+  border: 2px solid #0065b1;
+  font-size: 14pt;
+  border-radius: 4px;
+  margin: 10px 0;
+  padding: 12px;
+  width: 400px;
+}
+input:hover,
 select:hover {
   background: #eef8ff;
   cursor: pointer;
+}
+input[type="datetime-local"] {
+  width: 372px;
+}
+.form-field {
+  display: flex;
+  width: 70%;
+  margin-top: 20px;
+  align-items: center;
+}
+.form-field__control-container {
+  display: flex;
+  flex-direction: column;
+}
+.form-field .info {
+  font-size: 10.5pt;
+  color: #4c4c4c;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid #0065b1;
+}
+.form-field__hint {
+  font-size: 10.5pt;
+  color: #4c4c4c;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid #0065b1;
+}
+.form-field__hint:before {
+  font-weight: bold;
+  color: #0065b1;
+  content: 'Подсказка.';
 }
 /* Messages */
 .message {

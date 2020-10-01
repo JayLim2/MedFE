@@ -1,8 +1,23 @@
+/* Main colors */
+
+@med-blue-color: rgb(0, 101, 177);
+@med-red-color: rgb(238, 63, 88);
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.body {
+  flex: 1 0 auto;
+}
+
 .header {
   display: flex;
   flex-direction: row;
 
-  padding: 50px 100px;
+  padding: 50px 100px 20px 100px;
 
   &__title-block {
     width: 260px;
@@ -28,7 +43,7 @@
     width: auto;
     border-left: 1px solid gray;
     margin-left: @indent;
-    padding-left: @indent;
+    padding-right: @indent;
     vertical-align: middle;
 
     &_item {
@@ -42,4 +57,12 @@
       cursor: pointer;
     }
   }
+}
+
+.footer {
+  background: @med-blue-color;
+  padding: 30px 170px;
+  margin: 40px 0 0 0;
+  color: white;
+  font-size: 11pt;
 }
