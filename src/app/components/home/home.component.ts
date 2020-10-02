@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const login = sessionStorage.getItem("login");
-    const role = sessionStorage.getItem("role");
+    const login = localStorage.getItem("login");
+    const role = localStorage.getItem("role");
 
     this.userMessage = login && role ? `${login}` : null;
   }

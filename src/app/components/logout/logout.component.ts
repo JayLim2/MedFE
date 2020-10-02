@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (sessionStorage.length > 0) {
+    if (localStorage.length > 0) {
       this.authenticationService.resetSession();
     }
     this.router.navigateByUrl('');

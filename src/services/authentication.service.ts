@@ -13,7 +13,7 @@ export class Session {
 })
 export class AuthenticationService {
 
-  private session: Session;
+  private static SESSION_PARAMS = ["login", "role"];
 
   constructor(
     private restService: RestService
@@ -37,19 +37,21 @@ export class AuthenticationService {
 
   public setSession(session: Session): void {
     if (session) {
-      for (const sessionParam of Object.keys(session)) {
-        sessionStorage.setItem(sessionParam, session[sessionParam]);
+      for (const sessionParam of AuthenticationService.SESSION_PARAMS) {
+        localStorage.setItem(sessionParam, session[sessionParam]);
       }
     }
-    this.session = session;
   }
 
   public resetSession(): void {
-    sessionStorage.clear();
-    this.session = null;
+    localStorage.clear();
   }
 
   public isAuthenticated(): boolean {
-    return this.session !== undefined && this.session !== null;
+    let isAuthenticated = true;
+    for (const sessionParam of AuthenticationService.SESSION_PARAMS) {
+      isAuthenticated = isAuthenticated && !!localStorage.getItem(sessionParam);
+    }
+    return isAuthenticated;
   }
 }
