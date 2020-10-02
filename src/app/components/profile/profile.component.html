@@ -12,26 +12,26 @@
     <ng-template #lk>
       <div class="tabs">
         <div class="tab"
-             [ngClass]="selectedTab == main ? 'selected' : ''"
-             (click)="onTabClick(main)"
+             [ngClass]="selectedTab === 'main' ? 'selected' : ''"
+             (click)="onTabClick('main')"
         >
           Основные данные
         </div>
         <div class="tab"
-             [ngClass]="selectedTab == tickets ? 'selected' : ''"
-             (click)="onTabClick(tickets)"
+             [ngClass]="selectedTab === 'tickets' ? 'selected' : ''"
+             (click)="onTabClick('tickets')"
         >
           Талоны
         </div>
         <div class="tab"
-             [ngClass]="selectedTab == prescriptions ? 'selected' : ''"
-             (click)="onTabClick(prescriptions)"
+             [ngClass]="selectedTab === 'prescriptions' ? 'selected' : ''"
+             (click)="onTabClick('prescriptions')"
         >
           Назначения
         </div>
         <div class="tab"
-             [ngClass]="selectedTab == support ? 'selected' : ''"
-             (click)="onTabClick(support)"
+             [ngClass]="selectedTab === 'support' ? 'selected' : ''"
+             (click)="onTabClick('support')"
         >
           Служба поддержки
         </div>
@@ -39,16 +39,16 @@
     </ng-template>
 
     <ng-container [ngSwitch]="selectedTab">
-      <ng-container *ngSwitchCase="main">
+      <ng-container *ngSwitchCase="'main'">
         <ng-content *ngTemplateOutlet="main"></ng-content>
       </ng-container>
-      <ng-container *ngSwitchCase="tickets">
+      <ng-container *ngSwitchCase="'tickets'">
         <ng-content *ngTemplateOutlet="tickets"></ng-content>
       </ng-container>
-      <ng-container *ngSwitchCase="prescriptions">
+      <ng-container *ngSwitchCase="'prescriptions'">
         <ng-content *ngTemplateOutlet="prescriptions"></ng-content>
       </ng-container>
-      <ng-container *ngSwitchCase="support">
+      <ng-container *ngSwitchCase="'support'">
         <ng-content *ngTemplateOutlet="support"></ng-content>
       </ng-container>
     </ng-container>
@@ -86,7 +86,13 @@
 </ng-template>
 
 <ng-template #tickets>
-  Талоны, который оформил пациент или получил врач.
+  <div>
+    Талоны, который оформил пациент или получил врач.
+    <button class="button medium"
+            style="width: 250px; margin-left: 20px"
+            routerLink="/tickets/create"
+    >Записаться на прием</button>
+  </div>
 
   <div class="tickets">
     <div class="item">
@@ -116,9 +122,9 @@
         </div>
 
         <div class="controls">
-          <button class="medium outline">Назначения</button>
-          <button class="medium">Изменить время приема</button>
-          <button class="medium reject-button">Отменить талон</button>
+          <button class="button medium outline">Назначения</button>
+          <button class="button medium">Изменить время приема</button>
+          <button class="button medium reject-button">Отменить талон</button>
         </div>
       </div>
     </div>
@@ -150,8 +156,8 @@
         </div>
 
         <div class="controls">
-          <button class="medium">Изменить время приема</button>
-          <button class="medium reject-button">Отменить талон</button>
+          <button class="button medium">Изменить время приема</button>
+          <button class="button medium reject-button">Отменить талон</button>
         </div>
       </div>
     </div>
@@ -182,8 +188,8 @@
         </div>
 
         <div class="controls">
-          <button class="medium">Изменить время приема</button>
-          <button class="medium reject-button">Отменить талон</button>
+          <button class="button medium">Изменить время приема</button>
+          <button class="button medium reject-button">Отменить талон</button>
         </div>
       </div>
     </div>
@@ -212,9 +218,9 @@
         </div>
 
         <div class="controls">
-          <button class="medium outline">Талон</button>
-          <button class="medium">Изменить время приема</button>
-          <button class="medium reject-button">Отменить талон</button>
+          <button class="button medium outline">Талон</button>
+          <button class="button medium">Изменить время приема</button>
+          <button class="button medium reject-button">Отменить талон</button>
         </div>
       </div>
     </div>
@@ -245,8 +251,8 @@
         </div>
 
         <div class="controls">
-          <button class="medium">Открыть чат</button>
-          <button class="medium reject-button">Закрыть обращение</button>
+          <button class="button medium">Открыть чат</button>
+          <button class="button medium reject-button">Закрыть обращение</button>
         </div>
       </div>
     </div>

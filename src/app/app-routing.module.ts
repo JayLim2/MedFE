@@ -8,10 +8,12 @@ import {TicketPageComponent} from "./components/ticket-page/ticket-page.componen
 import {HelpComponent} from "./components/help/help.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {LogoutComponent} from "./components/logout/logout.component";
+import {RegisterComponent} from "./components/register/register.component";
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
   {path: 'tickets', component: TicketsComponent},

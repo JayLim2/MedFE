@@ -45,7 +45,7 @@ a {
 
 @original-font-size: 12pt;
 
-button {
+.button {
   width: 100%;
   background: @med-blue-color;
   color: white;
@@ -124,17 +124,21 @@ input[type="datetime-local"] {
   margin-top: 20px;
   align-items: center;
 
+  &__label {
+    display: flex;
+
+    &_required {
+
+      &:after {
+        color: red;
+        content: ' *';
+      }
+    }
+  }
+
   &__control-container {
     display: flex;
     flex-direction: column;
-  }
-
-  .info {
-    font-size: 10.5pt;
-    color: #4c4c4c;
-    margin-left: 20px;
-    padding-left: 20px;
-    border-left: 1px solid @med-blue-color;
   }
 
   &__hint {
@@ -145,6 +149,14 @@ input[type="datetime-local"] {
       color: @med-blue-color;
       content: 'Подсказка.';
     }
+  }
+
+  .info {
+    font-size: 10.5pt;
+    color: #4c4c4c;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 1px solid @med-blue-color;
   }
 }
 

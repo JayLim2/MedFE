@@ -1,0 +1,25 @@
+/* Main colors */
+
+@med-blue-color: rgb(0, 101, 177);
+@med-red-color: rgb(238, 63, 88);
+
+.folding {
+  color: @med-blue-color;
+  text-decoration: none;
+  border-bottom: 1px dashed @med-blue-color;
+
+  &:hover {
+    cursor: pointer;
+    color: @med-red-color;
+    border-bottom-color: @med-red-color;
+  }
+
+  &__content {
+    @indent: 15px;
+    @folding-common-indent: @indent @indent @indent;
+
+    border-left: 1px solid @med-blue-color;
+    margin: @folding-common-indent 0;
+    padding: @folding-common-indent @indent;
+  }
+}

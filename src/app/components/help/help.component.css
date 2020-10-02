@@ -1,0 +1,17 @@
+/* Main colors */
+.folding {
+  color: #0065b1;
+  text-decoration: none;
+  border-bottom: 1px dashed #0065b1;
+}
+.folding:hover {
+  cursor: pointer;
+  color: #ee3f58;
+  border-bottom-color: #ee3f58;
+}
+.folding__content {
+  border-left: 1px solid #0065b1;
+  margin: 15px 15px 15px 0;
+  padding: 15px 15px 15px 15px;
+}
+/*# sourceMappingURL=help.component.css.map */

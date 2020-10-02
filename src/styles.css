@@ -25,7 +25,7 @@ a:hover {
   color: #ee3f58;
 }
 /* Buttons */
-button {
+.button {
   width: 100%;
   background: #0065b1;
   color: white;
@@ -34,32 +34,32 @@ button {
   margin: 5px 0;
   padding: 10px;
 }
-button:hover {
+.button:hover {
   background: #003965;
   cursor: pointer;
 }
-button.outline {
+.button.outline {
   background: white;
   color: #0065b1;
   border: 1px solid #0065b1;
 }
-button.outline:hover {
+.button.outline:hover {
   border-color: #003965;
   color: #003965;
 }
-button.reject-button {
+.button.reject-button {
   background: #ee3f58;
 }
-button.reject-button:hover {
+.button.reject-button:hover {
   background: #9f0e23;
 }
-button.small {
+.button.small {
   font-size: 12pt;
 }
-button.medium {
+.button.medium {
   font-size: 14pt;
 }
-button.large {
+.button.large {
   font-size: 16pt;
 }
 /* Inputs */
@@ -98,16 +98,16 @@ input[type="datetime-local"] {
   margin-top: 20px;
   align-items: center;
 }
+.form-field__label {
+  display: flex;
+}
+.form-field__label_required:after {
+  color: red;
+  content: ' *';
+}
 .form-field__control-container {
   display: flex;
   flex-direction: column;
-}
-.form-field .info {
-  font-size: 10.5pt;
-  color: #4c4c4c;
-  margin-left: 20px;
-  padding-left: 20px;
-  border-left: 1px solid #0065b1;
 }
 .form-field__hint {
   font-size: 10.5pt;
@@ -120,6 +120,13 @@ input[type="datetime-local"] {
   font-weight: bold;
   color: #0065b1;
   content: 'Подсказка.';
+}
+.form-field .info {
+  font-size: 10.5pt;
+  color: #4c4c4c;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid #0065b1;
 }
 /* Messages */
 .message {

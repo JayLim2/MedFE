@@ -8,7 +8,9 @@
     <form style="display: flex; flex-direction: column">
       <div class="form-field">
         <div class="form-field__control-container">
-          Специализация врача:
+          <div class="form-field__label_required">
+            Специализация врача:
+          </div>
           <select>
             <option>Любая</option>
             <option>Терапевт</option>
@@ -25,7 +27,9 @@
 
       <div class="form-field">
         <div class="form-field__control-container">
-          Врач:
+          <div class="form-field__label_required">
+            Врач:
+          </div>
           <select>
             <option>Лечилов Александр Георгиевич</option>
             <option>Кромсалов Ганнибал Лекторович</option>
@@ -36,8 +40,10 @@
 
       <div class="form-field">
         <div class="form-field__control-container">
-          Дата и время приема:
-          <input type="datetime-local" />
+          <div class="form-field__label_required">
+            Дата и время приема:
+          </div>
+          <input type="datetime-local"/>
         </div>
 
         <div class="form-field__hint">
@@ -49,7 +55,7 @@
       </div>
 
       <div class="form-field" style="width: 100%">
-        <button class="medium"
+        <button class="button medium"
                 type="submit"
                 style="width: 250px"
         >

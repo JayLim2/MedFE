@@ -15,6 +15,9 @@ import { HelpComponent } from './components/help/help.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { DataFieldComponent } from './components/data-field/data-field.component';
+import { RegisterComponent } from './components/register/register.component';
+import { PopupComponent } from './components/popup/popup.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,14 +30,17 @@ import { DataFieldComponent } from './components/data-field/data-field.component
     HelpComponent,
     ProfileComponent,
     LogoutComponent,
-    DataFieldComponent
+    DataFieldComponent,
+    RegisterComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [RestService],
   bootstrap: [AppComponent]

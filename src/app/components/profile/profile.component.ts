@@ -8,17 +8,22 @@ import {AuthenticationService} from "../../../services/authentication.service";
 })
 export class ProfileComponent implements OnInit {
 
-  public selectedTab: TemplateRef<any>;
+  /* TODO Сделать не ручные флаги! */
+
+  public selectedTab: string = 'main';
 
   constructor(
     public authenticationService: AuthenticationService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
   }
 
-  onTabClick(tab: TemplateRef<any>): void {
+  ngOnInit(): void {
+    this.selectedTab = localStorage.getItem("selectedTab");
+  }
+
+  onTabClick(tab: string): void {
     this.selectedTab = tab;
+    localStorage.setItem("selectedTab", tab);
   }
 
 }
