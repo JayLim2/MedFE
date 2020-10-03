@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
-export interface CustomButton {
-  title: string,
-  onClick: (parameters: object) => any,
-  onClickParams: object
-  styles?: string
+export class CustomButton {
+  title: string;
+  onClick: (parameters: object) => any;
+  onClickParams?: object = {};
+  styles?: string = '';
 }
 
 @Component({

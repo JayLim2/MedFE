@@ -19,10 +19,10 @@ export class ChatComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.addMessage("1", "user1", "bla bla bla", "10.10.2010");
-    this.addMessage("2", "user1", "bla bla bla", "10.10.2010");
-    this.addMessage("3", "support", "Hello", "10.10.2010");
-    this.addMessage("4", "user1", "Bye", "10.10.2010");
+    this.addMessage("1", "user1", "bla bla bla", "10.10.2020 11:57");
+    this.addMessage("2", "user1", "bla bla bla", "10.10.2020 11:58");
+    this.addMessage("3", "support", "Hello", "10.10.2020 12:21");
+    this.addMessage("4", "user1", "Bye", "10.10.2020 12:29");
   }
 
   get messages(): Message[] {

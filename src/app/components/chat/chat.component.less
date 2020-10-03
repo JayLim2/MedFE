@@ -12,18 +12,24 @@
   display: flex;
   flex-direction: column;
 
+  @margin: 70px;
+  width: calc(100% - @margin);
+
   font-size: 10pt;
   padding:15px;
   margin-bottom: 15px;
   border: 0;
   border-radius:6px;
 
-  &.current-user {
-    background: rgb(228, 243, 255);
+  &.respondent-user {
+    color: white;
+    background: @med-blue-color;
+    margin-right: @margin;
   }
 
-  &.respondent-user {
+  &.current-user {
     background: #ededed;
+    margin-left: @margin;
   }
 
 }

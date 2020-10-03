@@ -91,7 +91,8 @@
     <button class="button medium"
             style="width: 250px; margin-left: 20px"
             routerLink="/tickets/create"
-    >Записаться на прием</button>
+    >Записаться на прием
+    </button>
   </div>
 
   <div class="tickets">
@@ -126,7 +127,19 @@
                  [buttonTitle]="'Изменить время приема'"
                  [styles]="'available-width'"
           >
-            Форма управления временем приема.
+            <!-- time -->
+            <div style="display: flex; flex-direction: column">
+              Введите другое время приема:
+              <input type="datetime-local"/>
+
+              <div style="color: gray;margin:10px 0;">
+                Если ячейка календаря выделена серым цветом, значит это выходной день,
+                талоны закончились или врач не принимиает в выбранное время.
+                <br/><br/>
+                <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
+              </div>
+            </div>
+            <!---------->
           </popup>
           <popup [popupTitle]="'Отменить талон?'"
                  [buttonTitle]="'Отменить талон'"
@@ -141,7 +154,7 @@
 
     <div class="ticket">
       <div class="ticket__header">
-        Талон № 2
+        Талон № 2 (как видит врач)
       </div>
       <div class="ticket__content">
         <div class="data">
@@ -166,11 +179,37 @@
         </div>
 
         <div class="controls">
+          <popup [popupTitle]="'Добавить назначения'"
+                 [buttonTitle]="'Назначения'"
+                 [styles]="'outline available-width'"
+                 [customButtons]="[savePrescriptionButton]"
+          >
+            Введите назначения:
+            <textarea class="input-control"
+                      style="width: 100%; height: 250px;"
+                      placeholder="Например, не употреблять в пищу жирное и жареное 3 месяца."
+            ></textarea>
+            <div style="color: red; margin: 10px 0;">
+              Внимание! Назначения невозможно отредактировать после сохранения.
+            </div>
+          </popup>
           <popup [popupTitle]="'Изменить время приема'"
                  [buttonTitle]="'Изменить время приема'"
                  [styles]="'available-width'"
           >
-            Форма управления временем приема.
+            <!-- time -->
+            <div style="display: flex; flex-direction: column">
+              Введите другое время приема:
+              <input type="datetime-local"/>
+
+              <div style="color: gray;margin:10px 0;">
+                Если ячейка календаря выделена серым цветом, значит это выходной день,
+                талоны закончились или врач не принимиает в выбранное время.
+                <br/><br/>
+                <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
+              </div>
+            </div>
+            <!---------->
           </popup>
           <popup [popupTitle]="'Отменить талон?'"
                  [buttonTitle]="'Отменить талон'"
@@ -184,7 +223,7 @@
     </div>
     <div class="ticket">
       <div class="ticket__header">
-        Талон № 3
+        Талон № 3 (как видит пациент)
       </div>
       <div class="ticket__content">
         <div class="data">
@@ -240,7 +279,19 @@
                  [buttonTitle]="'Изменить время приема'"
                  [styles]="'available-width'"
           >
-            Форма управления временем приема.
+            <!-- time -->
+            <div style="display: flex; flex-direction: column">
+              Введите другое время приема:
+              <input type="datetime-local"/>
+
+              <div style="color: gray;margin:10px 0;">
+                Если ячейка календаря выделена серым цветом, значит это выходной день,
+                талоны закончились или врач не принимиает в выбранное время.
+                <br/><br/>
+                <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
+              </div>
+            </div>
+            <!---------->
           </popup>
           <popup [popupTitle]="'Отменить талон?'"
                  [buttonTitle]="'Отменить талон'"

@@ -16,9 +16,15 @@ export class ProfileComponent implements OnInit {
   public supportChatButton: CustomButton = {
     title: "Отправить сообщение",
     onClick: () => {
-      alert("Message was sent.");
-    },
-    onClickParams: {}
+      alert("Сообщение отправлено в службу поддержки.");
+    }
+  }
+
+  public savePrescriptionButton: CustomButton = {
+    title: "Добавить назначения",
+    onClick: () => {
+      alert("Назначения сохранены.");
+    }
   }
 
   constructor(

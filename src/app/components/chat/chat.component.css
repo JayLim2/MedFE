@@ -6,16 +6,20 @@
 .message {
   display: flex;
   flex-direction: column;
+  width: calc(100% - 70px);
   font-size: 10pt;
   padding: 15px;
   margin-bottom: 15px;
   border: 0;
   border-radius: 6px;
 }
-.message.current-user {
-  background: #e4f3ff;
-}
 .message.respondent-user {
+  color: white;
+  background: #0065b1;
+  margin-right: 70px;
+}
+.message.current-user {
   background: #ededed;
+  margin-left: 70px;
 }
 /*# sourceMappingURL=chat.component.css.map */
