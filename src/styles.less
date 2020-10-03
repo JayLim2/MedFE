@@ -46,13 +46,16 @@ a {
 @original-font-size: 12pt;
 
 .button {
-  width: 100%;
   background: @med-blue-color;
   color: white;
   border: 0;
   border-radius: 4px;
   margin: @control-margin;
   padding: @control-padding + 5px;
+
+  &.available-width {
+    width: 100% !important;
+  }
 
   &:hover {
     background: darken(@med-blue-color, 15%);

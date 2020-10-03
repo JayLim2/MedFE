@@ -122,9 +122,25 @@
         </div>
 
         <div class="controls">
-          <button class="button medium outline">Назначения</button>
-          <button class="button medium">Изменить время приема</button>
-          <button class="button medium reject-button">Отменить талон</button>
+          <popup [popupTitle]="'Назначения'"
+                 [buttonTitle]="'Назначения'"
+                 [styles]="'outline available-width'"
+          >
+            Текст назначений.
+          </popup>
+          <popup [popupTitle]="'Изменить время приема'"
+                 [buttonTitle]="'Изменить время приема'"
+                 [styles]="'available-width'"
+          >
+            Форма управления временем приема.
+          </popup>
+          <popup [popupTitle]="'Отменить талон?'"
+                 [buttonTitle]="'Отменить талон'"
+                 [styles]="'reject-button available-width'"
+                 [type]="'confirm'"
+          >
+            Вы действительно хотите отменить талон?
+          </popup>
         </div>
       </div>
     </div>
@@ -156,8 +172,19 @@
         </div>
 
         <div class="controls">
-          <button class="button medium">Изменить время приема</button>
-          <button class="button medium reject-button">Отменить талон</button>
+          <popup [popupTitle]="'Изменить время приема'"
+                 [buttonTitle]="'Изменить время приема'"
+                 [styles]="'available-width'"
+          >
+            Форма управления временем приема.
+          </popup>
+          <popup [popupTitle]="'Отменить талон?'"
+                 [buttonTitle]="'Отменить талон'"
+                 [styles]="'reject-button available-width'"
+                 [type]="'confirm'"
+          >
+            Вы действительно хотите отменить талон?
+          </popup>
         </div>
       </div>
     </div>
@@ -188,8 +215,19 @@
         </div>
 
         <div class="controls">
-          <button class="button medium">Изменить время приема</button>
-          <button class="button medium reject-button">Отменить талон</button>
+          <popup [popupTitle]="'Изменить время приема'"
+                 [buttonTitle]="'Изменить время приема'"
+                 [styles]="'available-width'"
+          >
+            Форма управления временем приема.
+          </popup>
+          <popup [popupTitle]="'Отменить талон?'"
+                 [buttonTitle]="'Отменить талон'"
+                 [styles]="'reject-button available-width'"
+                 [type]="'confirm'"
+          >
+            Вы действительно хотите отменить талон?
+          </popup>
         </div>
       </div>
     </div>
@@ -218,9 +256,12 @@
         </div>
 
         <div class="controls">
-          <button class="button medium outline">Талон</button>
-          <button class="button medium">Изменить время приема</button>
-          <button class="button medium reject-button">Отменить талон</button>
+          <popup [popupTitle]="'Просмотр талона'"
+                 [buttonTitle]="'Талон'"
+                 [styles]="'outline available-width'"
+          >
+            Информация из талона.
+          </popup>
         </div>
       </div>
     </div>
@@ -251,8 +292,19 @@
         </div>
 
         <div class="controls">
-          <button class="button medium">Открыть чат</button>
-          <button class="button medium reject-button">Закрыть обращение</button>
+          <popup [popupTitle]="'Служба поддержки'"
+                 [buttonTitle]="'Открыть чат'"
+                 [styles]="'available-width'"
+          >
+            Здесь будет чат с оператором.
+          </popup>
+          <popup [popupTitle]="'Закрыть обращение?'"
+                 [buttonTitle]="'Закрыть обращение'"
+                 [styles]="'reject-button available-width'"
+                 [type]="'confirm'"
+          >
+            Вы точно хотите закрыть обращение?
+          </popup>
         </div>
       </div>
     </div>

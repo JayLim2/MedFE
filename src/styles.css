@@ -26,13 +26,15 @@ a:hover {
 }
 /* Buttons */
 .button {
-  width: 100%;
   background: #0065b1;
   color: white;
   border: 0;
   border-radius: 4px;
   margin: 5px 0;
   padding: 10px;
+}
+.button.available-width {
+  width: 100% !important;
 }
 .button:hover {
   background: #003965;

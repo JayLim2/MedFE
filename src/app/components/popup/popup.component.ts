@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -8,7 +8,16 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class PopupComponent implements OnInit {
 
-  closeResult = '';
+  @Input()
+  buttonTitle: string;
+  @Input()
+  popupTitle: any;
+  @Input()
+  styles: string;
+  @Input()
+  type: string = 'info';
+
+  isApproved: boolean = false;
 
   constructor(private modalService: NgbModal) {
   }
@@ -17,21 +26,27 @@ export class PopupComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, {ariaLabelledBy: 'modal-basic-title'})
+      .result
+      .then((result) => {}, (reason) => {});
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
+
+  onClose(modal: any, event: string): void {
+    switch (this.type) {
+      case 'confirm':
+        this.isApproved = event === 'approve';
+        if(this.isApproved) {
+          console.log("Confirmed");
+        } else {
+          console.log("Rejected");
+        }
+        break;
+      default:
+        console.log("Closed");
     }
+    modal.close();
   }
 
 }

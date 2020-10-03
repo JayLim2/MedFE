@@ -2,29 +2,40 @@
   <div class="modal-header">
     <h4 class="modal-title"
         id="modal-basic-title"
-    >Profile update</h4>
+    >{{popupTitle}}</h4>
     <button type="button"
             class="close"
             aria-label="Close"
-            (click)="modal.dismiss('Cross click')"
+            (click)="onClose(modal, 'reject')"
     >
       &times;
     </button>
   </div>
   <div class="modal-body">
-    Текст
+    <ng-content></ng-content>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark"
-            (click)="modal.close('Save click')"
-    >Save</button>
+    <ng-container [ngSwitch]="type">
+      <!-- info window -->
+      <ng-container *ngSwitchCase="'info'">
+        <button type="button" class="btn btn-dark"
+                (click)="onClose(modal, 'reject')"
+        >Закрыть</button>
+      </ng-container>
+      <!-- confirm window -->
+      <ng-container *ngSwitchCase="'confirm'">
+        <button type="button" class="btn btn-danger"
+                (click)="onClose(modal, 'approve')"
+        >Хорошо</button>
+        <button type="button" class="btn btn-primary"
+                (click)="onClose(modal, 'reject')"
+        >Передумал</button>
+      </ng-container>
+    </ng-container>
   </div>
 </ng-template>
 
-<button class="btn btn-lg btn-outline-primary"
+<button class="button medium"
+        [ngClass]="styles"
         (click)="open(content)"
->Launch demo modal</button>
-
-<hr>
-
-<pre>{{closeResult}}</pre>
+>{{buttonTitle}}</button>
