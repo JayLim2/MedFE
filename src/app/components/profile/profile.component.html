@@ -95,11 +95,11 @@
   </div>
 
   <div class="tickets">
-    <div class="item">
-      <div class="item__header">
+    <div class="ticket">
+      <div class="ticket__header">
         Талон № 1
       </div>
-      <div class="item__content">
+      <div class="ticket__content">
         <div class="data">
           <data-field [name]="'Пациент'"
                       [value]="'Комаров Сергей Геннадьевич'"
@@ -122,12 +122,6 @@
         </div>
 
         <div class="controls">
-          <popup [popupTitle]="'Назначения'"
-                 [buttonTitle]="'Назначения'"
-                 [styles]="'outline available-width'"
-          >
-            Текст назначений.
-          </popup>
           <popup [popupTitle]="'Изменить время приема'"
                  [buttonTitle]="'Изменить время приема'"
                  [styles]="'available-width'"
@@ -145,11 +139,11 @@
       </div>
     </div>
 
-    <div class="item">
-      <div class="item__header">
+    <div class="ticket">
+      <div class="ticket__header">
         Талон № 2
       </div>
-      <div class="item__content">
+      <div class="ticket__content">
         <div class="data">
           <data-field [name]="'Пациент'"
                       [value]="'Комаров Сергей Геннадьевич'"
@@ -188,11 +182,11 @@
         </div>
       </div>
     </div>
-    <div class="item">
-      <div class="item__header">
+    <div class="ticket">
+      <div class="ticket__header">
         Талон № 3
       </div>
-      <div class="item__content">
+      <div class="ticket__content">
         <div class="data">
           <data-field [name]="'Пациент'"
                       [value]="'Комаров Сергей Геннадьевич'"
@@ -215,6 +209,33 @@
         </div>
 
         <div class="controls">
+          <popup [popupTitle]="'Назначения'"
+                 [buttonTitle]="'Назначения'"
+                 [styles]="'outline available-width'"
+          >
+            <!-- prescriptions -->
+            <div class="tickets">
+              <div class="ticket in-popup">
+                <div class="ticket__header">
+                  Назначение врача по талону № 3
+                </div>
+                <div class="ticket__content">
+                  <div class="data">
+                    <data-field [name]="'Пациент'"
+                                [value]="'Комаров Сергей Геннадьевич'"
+                    ></data-field>
+                    <data-field [name]="'Врач'"
+                                [value]="'Лечилов Александр Георгиевич'"
+                    ></data-field>
+                    <data-field [name]="'Назначение'"
+                                [value]="'Пиво, водка, кислота наши лучшие друзья'"
+                    ></data-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- prescriptions -->
+          </popup>
           <popup [popupTitle]="'Изменить время приема'"
                  [buttonTitle]="'Изменить время приема'"
                  [styles]="'available-width'"
@@ -238,11 +259,11 @@
   Назначения, которые получил пациент или сформировал врач.
 
   <div class="tickets">
-    <div class="item">
-      <div class="item__header">
+    <div class="ticket">
+      <div class="ticket__header">
         Назначение врача по талону № 3
       </div>
-      <div class="item__content">
+      <div class="ticket__content">
         <div class="data">
           <data-field [name]="'Пациент'"
                       [value]="'Комаров Сергей Геннадьевич'"
@@ -260,7 +281,37 @@
                  [buttonTitle]="'Талон'"
                  [styles]="'outline available-width'"
           >
-            Информация из талона.
+            <!-- ticket -->
+            <div class="tickets">
+              <div class="ticket in-popup">
+                <div class="ticket__header">
+                  Талон № 3
+                </div>
+                <div class="ticket__content">
+                  <div class="data">
+                    <data-field [name]="'Пациент'"
+                                [value]="'Комаров Сергей Геннадьевич'"
+                    ></data-field>
+                    <data-field [name]="'Время приема'"
+                                [value]="'21.11.2020 16:30'"
+                    ></data-field>
+                    <data-field [name]="'Врач'"
+                                [value]="'Кромсалов Ганнибал Лекторович'"
+                    ></data-field>
+                    <data-field [name]="'Кабинет'"
+                                [value]="'32'"
+                    ></data-field>
+                    <data-field [name]="'Специализация'"
+                                [value]="'хирург'"
+                    ></data-field>
+                    <data-field [name]="'Полис ОМС пациента'"
+                                [value]="'0000-0000 00 000'"
+                    ></data-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / -->
           </popup>
         </div>
       </div>
@@ -272,11 +323,11 @@
   Служба поддержки работает 24/7, чтобы Вы могли получать качественные услуги.
 
   <div class="tickets">
-    <div class="item">
-      <div class="item__header">
+    <div class="ticket">
+      <div class="ticket__header">
         Обращение в поддержку №1
       </div>
-      <div class="item__content">
+      <div class="ticket__content">
         <div class="data">
           <div class="support-ticket-status opened"></div>
 
@@ -295,8 +346,11 @@
           <popup [popupTitle]="'Служба поддержки'"
                  [buttonTitle]="'Открыть чат'"
                  [styles]="'available-width'"
+                 [customButtons]="[supportChatButton]"
           >
-            Здесь будет чат с оператором.
+            <!-- chat -->
+            <chat></chat>
+            <!-- / -->
           </popup>
           <popup [popupTitle]="'Закрыть обращение?'"
                  [buttonTitle]="'Закрыть обращение'"

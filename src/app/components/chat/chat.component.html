@@ -1,0 +1,36 @@
+<ng-container *ngIf="messages.length === 0; else chat">
+  Сообщений нет.
+</ng-container>
+<ng-template #chat>
+  <div class="messages">
+    <ng-container *ngFor="let message of messages">
+      <ng-container *ngIf="isCurrentUserMessage(message); else respondentUserTemplate">
+        <div class="message"
+             [ngClass]="'current-user'"
+        >
+          <b>Вы</b>
+          {{message.text}}
+          <div style="text-align: right;">
+            {{message.datetime}}
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #respondentUserTemplate>
+        <div class="message"
+             [ngClass]="'respondent-user'"
+        >
+          <b>{{message.user}}</b>
+          {{message.text}}
+          <div style="text-align: right;">
+            {{message.datetime}}
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <textarea class="input-control"
+            style="width: 100%"
+            placeholder="Введите сообщение"
+  ></textarea>
+</ng-template>

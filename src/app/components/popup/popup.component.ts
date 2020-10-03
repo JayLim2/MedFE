@@ -1,5 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+
+export interface CustomButton {
+  title: string,
+  onClick: (parameters: object) => any,
+  onClickParams: object
+  styles?: string
+}
 
 @Component({
   selector: 'popup',
@@ -16,6 +23,8 @@ export class PopupComponent implements OnInit {
   styles: string;
   @Input()
   type: string = 'info';
+  @Input()
+  customButtons: CustomButton[] = [];
 
   isApproved: boolean = false;
 

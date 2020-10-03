@@ -18,6 +18,7 @@ import { DataFieldComponent } from './components/data-field/data-field.component
 import { RegisterComponent } from './components/register/register.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LogoutComponent,
     DataFieldComponent,
     RegisterComponent,
-    PopupComponent
+    PopupComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

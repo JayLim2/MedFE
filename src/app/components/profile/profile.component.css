@@ -2,24 +2,30 @@
   display: flex;
   flex-direction: column;
 }
-.tickets .item {
+.tickets .ticket {
   margin-top: 25px;
   width: 70%;
   border: 1px solid #0065b1;
   border-radius: 4px;
   padding: 25px;
 }
-.tickets .item__header {
+.tickets .ticket.in-popup {
+  width: 100%;
+  border: 0;
+  margin: 0;
+  padding: 10px;
+}
+.tickets .ticket__header {
   color: #0065b1;
   font-weight: bold;
 }
-.tickets .item__content {
+.tickets .ticket__content {
   display: flex;
 }
-.tickets .item__content .data {
+.tickets .ticket__content .data {
   width: calc(100% - 170px);
 }
-.tickets .item__content .controls {
+.tickets .ticket__content .controls {
   width: 150px;
 }
 /*# sourceMappingURL=profile.component.css.map */

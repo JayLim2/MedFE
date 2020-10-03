@@ -15,6 +15,14 @@
     <ng-content></ng-content>
   </div>
   <div class="modal-footer">
+    <!-- custom buttons -->
+    <ng-container *ngFor="let customButton of customButtons">
+      <button class="btn btn-primary"
+              (click)="customButton.onClick(customButton.onClickParams)"
+      >{{customButton.title}}</button>
+    </ng-container>
+    <!-------------------->
+
     <ng-container [ngSwitch]="type">
       <!-- info window -->
       <ng-container *ngSwitchCase="'info'">
