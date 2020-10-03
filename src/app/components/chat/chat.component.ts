@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Message {
-  id: string,
-  user: string;
-  text: string;
-  datetime: string
-}
+import {Message} from "../../models/Message";
 
 @Component({
   selector: 'chat',

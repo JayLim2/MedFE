@@ -28,8 +28,6 @@ export class RestService {
   ) {
   }
 
-
-
   public get(url: string, options?: Options): Observable<any> {
     return this.httpClient.get(RestService.COMMON_URL + url, options);
   }
