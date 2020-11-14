@@ -19,6 +19,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChatComponent } from './components/chat/chat.component';
+import { DoctorsCatalogComponent } from './components/doctors-catalog/doctors-catalog.component';
+import { MedServicesCatalogComponent } from './components/med-services-catalog/med-services-catalog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ChatComponent } from './components/chat/chat.component';
     DataFieldComponent,
     RegisterComponent,
     PopupComponent,
-    ChatComponent
+    ChatComponent,
+    DoctorsCatalogComponent,
+    MedServicesCatalogComponent
   ],
   imports: [
     BrowserModule,

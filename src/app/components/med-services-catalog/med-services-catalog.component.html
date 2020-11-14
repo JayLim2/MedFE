@@ -1,0 +1,46 @@
+<div class="page">
+  <div class="page__title">
+    Перечень услуг
+  </div>
+
+  <div class="page__content">
+    Здесь представлен полный перечень услуг, оказываемых нашей поликлиникой.
+
+    <div class="list">
+      <div *ngFor="let medService of medServicesList"
+           class="list__item"
+      >
+        <div class="list__item__header">
+          {{medService.name}}
+        </div>
+        <div class="list__item__content">
+          <div class="data">
+            <data-field [name]="'Описание'"
+                        [value]="medService.description"
+            ></data-field>
+            <data-field [name]="'Рекомендации'"
+                        [value]="medService.recommendations"
+            ></data-field>
+            <data-field [name]="'Доступна'"
+                        [value]="medService.isAvailable ? 'Да' : 'Нет'"
+            ></data-field>
+          </div>
+
+          <div class="controls">
+            <popup [popupTitle]="'Список врачей'"
+                   [buttonTitle]="'Список врачей'"
+                   [styles]="'available-width'"
+            >
+              Список врачей, оказывающих данную услугу:
+              <ul>
+                <li *ngFor="let doctor of getDoctorsByMedService(medService.name)">
+                  {{doctor.name}} ({{doctor.specialization + ", кабинет " + doctor.cabinet}})
+                </li>
+              </ul>
+            </popup>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

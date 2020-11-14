@@ -1,0 +1,47 @@
+<div class="page">
+  <div class="page__title">
+    Врачи поликлиники
+  </div>
+
+  <div class="page__content">
+    Здесь Вы можете узнать обо всех врачах, работающих в нашей поликлинике.
+
+    <div class="list">
+      <div *ngIf="doctorsModel.length === 0"
+           class="info"
+      >
+        К сожалению, список пуст.
+      </div>
+      <div *ngFor="let doctor of doctorsModel"
+           class="list__item"
+      >
+        <div class="list__item__header">
+          {{doctor.user.name()}}
+        </div>
+        <div class="list__item__content">
+          <div class="data">
+            <data-field [name]="'Специализация'"
+                        [value]="doctor.specialization.name"
+            ></data-field>
+            <data-field [name]="'Кабинет'"
+                        [value]="doctor.cabinet.name"
+            ></data-field>
+            <data-field [name]="'Контактный телефон'"
+                        [value]="doctor.user.phone"
+            ></data-field>
+            <data-field [name]="'Принимает пациентов'"
+                        [value]="doctor.isWorkingNow ? 'Да' : 'Нет'"
+            ></data-field>
+          </div>
+
+          <div class="controls">
+            <button class="button medium"
+                    [ngClass]="'available-width'"
+                    (click)="onCreatePatientTicket(doctor.id)"
+            >Записаться на прием</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

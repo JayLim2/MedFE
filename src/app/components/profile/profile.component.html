@@ -56,7 +56,19 @@
 </div>
 
 <ng-template #main>
-  Основные данные пациента или врача.
+  <ng-container [ngSwitch]="currentUser.role">
+    Вы вошли как
+    <ng-container *ngSwitchCase="'PATIENT'">
+      <b>пациент</b>
+    </ng-container>
+    <ng-container *ngSwitchCase="'DOCTOR'">
+      <b>врач</b>
+    </ng-container>
+    <ng-container *ngSwitchCase="'ADMIN'">
+      <b>администратор</b>
+    </ng-container>
+  </ng-container>
+
   <div style="display: flex; margin:25px 0;">
     <!-- avatar -->
     <div style="display: flex; flex-direction: column;text-align: center">
@@ -64,23 +76,35 @@
            style="width: 140px; border-radius: 10px"
            alt="Фото профиля"
       />
-      <a routerLink="profile/editAvatar">
+      <!--<a routerLink="profile/editAvatar">
         <span style="font-size: 11pt">
           Изменить фото
         </span>
-      </a>
+      </a>-->
     </div>
     <!-- main data -->
     <div style="display: flex; flex-direction: column; margin-left: 25px;">
       <data-field [name]="'Фамилия, имя, отчество'"
-                  [value]="'Комаров Сергей Геннадьевич'"
+                  [value]="currentUser.name()"
       ></data-field>
-      <data-field [name]="'Дата рождения'"
-                  [value]="'18 февраля 1998 года'"
-      ></data-field>
-      <data-field [name]="'Полис ОМС'"
-                  [value]="'0000-0000 00 000'"
-      ></data-field>
+      <!-- for doctor -->
+      <ng-container *ngIf="currentDoctor">
+        <data-field [name]="'Специализация'"
+                    [value]="currentDoctor.specialization.name"
+        ></data-field>
+        <data-field [name]="'Кабинет'"
+                    [value]="currentDoctor.cabinet.name"
+        ></data-field>
+      </ng-container>
+      <!-- for patient -->
+      <ng-container *ngIf="currentPatient">
+        <data-field [name]="'Дата рождения'"
+                    [value]="currentPatient.birthday"
+        ></data-field>
+        <data-field [name]="'Полис ОМС'"
+                    [value]="currentPatient.insurancePolicyNumber"
+        ></data-field>
+      </ng-container>
     </div>
   </div>
 </ng-template>
@@ -96,210 +120,122 @@
   </div>
 
   <div class="tickets">
-    <div class="ticket">
+    <div *ngFor="let ticket of patientTicketsList"
+         class="ticket"
+    >
       <div class="ticket__header">
-        Талон № 1
+        Талон № {{ticket.id}}
       </div>
       <div class="ticket__content">
         <div class="data">
           <data-field [name]="'Пациент'"
-                      [value]="'Комаров Сергей Геннадьевич'"
+                      [value]="ticket.patient.user.name()"
           ></data-field>
           <data-field [name]="'Время приема'"
-                      [value]="'07.10.2020 10:15'"
+                      [value]="ticket.datetime"
           ></data-field>
           <data-field [name]="'Врач'"
-                      [value]="'Лечилов Александр Георгиевич'"
+                      [value]="ticket.doctor.user.name()"
           ></data-field>
           <data-field [name]="'Кабинет'"
-                      [value]="'14'"
+                      [value]="ticket.doctor.cabinet.name"
           ></data-field>
           <data-field [name]="'Специализация'"
-                      [value]="'врач-терапевт'"
+                      [value]="ticket.doctor.specialization.name"
           ></data-field>
           <data-field [name]="'Полис ОМС пациента'"
-                      [value]="'0000-0000 00 000'"
+                      [value]="ticket.patient.insurancePolicyNumber"
           ></data-field>
         </div>
 
         <div class="controls">
-          <popup [popupTitle]="'Изменить время приема'"
-                 [buttonTitle]="'Изменить время приема'"
-                 [styles]="'available-width'"
-          >
-            <!-- time -->
-            <div style="display: flex; flex-direction: column">
-              Введите другое время приема:
-              <input type="datetime-local"/>
+          <ng-container [ngSwitch]="currentUser.role">
+            <ng-container *ngSwitchCase="'PATIENT'">
+              <popup *ngIf="ticket.prescriptions"
+                     [popupTitle]="'Мои назначения'"
+                     [buttonTitle]="'Мои назначения'"
+                     [styles]="'outline available-width'"
+              >
+                {{ticket.prescriptions}}
+              </popup>
+              <popup [popupTitle]="'Изменить время приема'"
+                     [buttonTitle]="'Изменить время приема'"
+                     [styles]="'available-width'"
+              >
+                <!-- time -->
+                <div style="display: flex; flex-direction: column">
+                  Введите другое время приема:
+                  <input type="datetime-local"/>
 
-              <div style="color: gray;margin:10px 0;">
-                Если ячейка календаря выделена серым цветом, значит это выходной день,
-                талоны закончились или врач не принимиает в выбранное время.
-                <br/><br/>
-                <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
-              </div>
-            </div>
-            <!---------->
-          </popup>
-          <popup [popupTitle]="'Отменить талон?'"
-                 [buttonTitle]="'Отменить талон'"
-                 [styles]="'reject-button available-width'"
-                 [type]="'confirm'"
-          >
-            Вы действительно хотите отменить талон?
-          </popup>
-        </div>
-      </div>
-    </div>
-
-    <div class="ticket">
-      <div class="ticket__header">
-        Талон № 2 (как видит врач)
-      </div>
-      <div class="ticket__content">
-        <div class="data">
-          <data-field [name]="'Пациент'"
-                      [value]="'Комаров Сергей Геннадьевич'"
-          ></data-field>
-          <data-field [name]="'Время приема'"
-                      [value]="'02.01.2020 08:00'"
-          ></data-field>
-          <data-field [name]="'Врач'"
-                      [value]="'Калеченко Георгий Сигизмундович'"
-          ></data-field>
-          <data-field [name]="'Кабинет'"
-                      [value]="'21'"
-          ></data-field>
-          <data-field [name]="'Специализация'"
-                      [value]="'травмотолог'"
-          ></data-field>
-          <data-field [name]="'Полис ОМС пациента'"
-                      [value]="'0000-0000 00 000'"
-          ></data-field>
-        </div>
-
-        <div class="controls">
-          <popup [popupTitle]="'Добавить назначения'"
-                 [buttonTitle]="'Назначения'"
-                 [styles]="'outline available-width'"
-                 [customButtons]="[savePrescriptionButton]"
-          >
-            Введите назначения:
-            <textarea class="input-control"
-                      style="width: 100%; height: 250px;"
-                      placeholder="Например, не употреблять в пищу жирное и жареное 3 месяца."
-            ></textarea>
-            <div style="color: red; margin: 10px 0;">
-              Внимание! Назначения невозможно отредактировать после сохранения.
-            </div>
-          </popup>
-          <popup [popupTitle]="'Изменить время приема'"
-                 [buttonTitle]="'Изменить время приема'"
-                 [styles]="'available-width'"
-          >
-            <!-- time -->
-            <div style="display: flex; flex-direction: column">
-              Введите другое время приема:
-              <input type="datetime-local"/>
-
-              <div style="color: gray;margin:10px 0;">
-                Если ячейка календаря выделена серым цветом, значит это выходной день,
-                талоны закончились или врач не принимиает в выбранное время.
-                <br/><br/>
-                <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
-              </div>
-            </div>
-            <!---------->
-          </popup>
-          <popup [popupTitle]="'Отменить талон?'"
-                 [buttonTitle]="'Отменить талон'"
-                 [styles]="'reject-button available-width'"
-                 [type]="'confirm'"
-          >
-            Вы действительно хотите отменить талон?
-          </popup>
-        </div>
-      </div>
-    </div>
-    <div class="ticket">
-      <div class="ticket__header">
-        Талон № 3 (как видит пациент)
-      </div>
-      <div class="ticket__content">
-        <div class="data">
-          <data-field [name]="'Пациент'"
-                      [value]="'Комаров Сергей Геннадьевич'"
-          ></data-field>
-          <data-field [name]="'Время приема'"
-                      [value]="'21.11.2020 16:30'"
-          ></data-field>
-          <data-field [name]="'Врач'"
-                      [value]="'Кромсалов Ганнибал Лекторович'"
-          ></data-field>
-          <data-field [name]="'Кабинет'"
-                      [value]="'32'"
-          ></data-field>
-          <data-field [name]="'Специализация'"
-                      [value]="'хирург'"
-          ></data-field>
-          <data-field [name]="'Полис ОМС пациента'"
-                      [value]="'0000-0000 00 000'"
-          ></data-field>
-        </div>
-
-        <div class="controls">
-          <popup [popupTitle]="'Назначения'"
-                 [buttonTitle]="'Назначения'"
-                 [styles]="'outline available-width'"
-          >
-            <!-- prescriptions -->
-            <div class="tickets">
-              <div class="ticket in-popup">
-                <div class="ticket__header">
-                  Назначение врача по талону № 3
-                </div>
-                <div class="ticket__content">
-                  <div class="data">
-                    <data-field [name]="'Пациент'"
-                                [value]="'Комаров Сергей Геннадьевич'"
-                    ></data-field>
-                    <data-field [name]="'Врач'"
-                                [value]="'Лечилов Александр Георгиевич'"
-                    ></data-field>
-                    <data-field [name]="'Назначение'"
-                                [value]="'Пиво, водка, кислота наши лучшие друзья'"
-                    ></data-field>
+                  <div style="color: gray;margin:10px 0;">
+                    Если ячейка календаря выделена серым цветом, значит это выходной день,
+                    талоны закончились или врач не принимиает в выбранное время.
+                    <br/><br/>
+                    <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
                   </div>
                 </div>
-              </div>
-            </div>
-            <!-- prescriptions -->
-          </popup>
-          <popup [popupTitle]="'Изменить время приема'"
-                 [buttonTitle]="'Изменить время приема'"
-                 [styles]="'available-width'"
-          >
-            <!-- time -->
-            <div style="display: flex; flex-direction: column">
-              Введите другое время приема:
-              <input type="datetime-local"/>
+                <!---------->
+              </popup>
+              <popup [popupTitle]="'Отменить талон?'"
+                     [buttonTitle]="'Отменить талон'"
+                     [styles]="'reject-button available-width'"
+                     [type]="'confirm'"
+              >
+                Вы действительно хотите отменить талон?
+              </popup>
+            </ng-container>
+            <ng-container *ngSwitchCase="'DOCTOR'">
+              <popup [popupTitle]="'Добавить назначения для пациента'"
+                     [buttonTitle]="ticket.prescriptions ? 'Назначения' : 'Добавить назначения'"
+                     [styles]="'outline available-width'"
+                     [customButtons]="ticket.prescriptions ? [] : [savePrescriptionButton]"
+              >
+                <ng-container
+                  *ngIf="ticket.prescriptions; then readonlyPrescriptions else editablePrescriptiopns"></ng-container>
+                <ng-template #readonlyPrescriptions>
+                  {{ticket.prescriptions}}
+                </ng-template>
+                <ng-template #editablePrescriptiopns>
+                  <label style="width: 100%;">
+                    Введите назначения:
+                    <textarea class="input-control"
+                              style="width: 100%; height: 200px;"
+                              placeholder="Например, не употреблять в пищу жирное и жареное 3 месяца."
+                    ></textarea>
+                  </label>
+                </ng-template>
 
-              <div style="color: gray;margin:10px 0;">
-                Если ячейка календаря выделена серым цветом, значит это выходной день,
-                талоны закончились или врач не принимиает в выбранное время.
-                <br/><br/>
-                <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
-              </div>
-            </div>
-            <!---------->
-          </popup>
-          <popup [popupTitle]="'Отменить талон?'"
-                 [buttonTitle]="'Отменить талон'"
-                 [styles]="'reject-button available-width'"
-                 [type]="'confirm'"
-          >
-            Вы действительно хотите отменить талон?
-          </popup>
+                <div style="color: red; margin: 10px 0;">
+                  Внимание! Назначения невозможно отредактировать после сохранения.
+                </div>
+              </popup>
+              <popup [popupTitle]="'Изменить время приема'"
+                     [buttonTitle]="'Изменить время приема'"
+                     [styles]="'available-width'"
+              >
+                <!-- time -->
+                <div style="display: flex; flex-direction: column">
+                  Введите другое время приема:
+                  <input type="datetime-local"/>
+
+                  <div style="color: gray;margin:10px 0;">
+                    Если ячейка календаря выделена серым цветом, значит это выходной день,
+                    талоны закончились или врач не принимиает в выбранное время.
+                    <br/><br/>
+                    <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
+                  </div>
+                </div>
+                <!---------->
+              </popup>
+              <popup [popupTitle]="'Отменить талон?'"
+                     [buttonTitle]="'Отменить талон'"
+                     [styles]="'reject-button available-width'"
+                     [type]="'confirm'"
+              >
+                Вы действительно хотите отменить талон?
+              </popup>
+            </ng-container>
+          </ng-container>
         </div>
       </div>
     </div>

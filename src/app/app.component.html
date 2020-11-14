@@ -16,7 +16,15 @@
       </div>
       <div class="header__menu-block_item"
            routerLink="help"
-      >Вопросы и ответы
+      >Помощь
+      </div>
+      <div class="header__menu-block_item"
+           routerLink="catalog/doctors"
+      >Врачи
+      </div>
+      <div class="header__menu-block_item"
+           routerLink="catalog/medServices"
+      >Услуги
       </div>
 
       <ng-container *ngIf="this.authenticationService.isAuthenticated(); else unauthorizedUserMenu">

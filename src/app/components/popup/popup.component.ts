@@ -41,7 +41,6 @@ export class PopupComponent implements OnInit {
       .then((result) => {}, (reason) => {});
   }
 
-
   onClose(modal: any, event: string): void {
     switch (this.type) {
       case 'confirm':

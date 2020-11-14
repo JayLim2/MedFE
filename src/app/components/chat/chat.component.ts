@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Message} from "../../models/Message";
+import {Message} from "../../models/message.model";
 
 @Component({
   selector: 'chat',

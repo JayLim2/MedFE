@@ -9,6 +9,8 @@ import {HelpComponent} from "./components/help/help.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {LogoutComponent} from "./components/logout/logout.component";
 import {RegisterComponent} from "./components/register/register.component";
+import {DoctorsCatalogComponent} from "./components/doctors-catalog/doctors-catalog.component";
+import {MedServicesCatalogComponent} from "./components/med-services-catalog/med-services-catalog.component";
 
 
 const routes: Routes = [
@@ -20,6 +22,8 @@ const routes: Routes = [
   {path: 'tickets/view/:ticketId', component: TicketPageComponent},
   {path: 'tickets/create', component: CreateTicketFormComponent},
   {path: 'help', component: HelpComponent},
+  {path: 'catalog/doctors', component: DoctorsCatalogComponent},
+  {path: 'catalog/medServices', component: MedServicesCatalogComponent},
   {path: 'profile', component: ProfileComponent}
 ];
 
