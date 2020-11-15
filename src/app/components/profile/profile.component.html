@@ -3,40 +3,20 @@
     Личный кабинет
   </div>
   <div class="page__content">
-    <!--    <ng-container *ngIf="!authenticationService.isAuthenticated(); else lk">-->
-    <ng-container *ngIf="false; else lk">
-      <div class="message error">
-        Извините, но пока что Вам сюда нельзя. <a routerLink="login">Войдите</a> в систему.
+    <div class="tabs">
+      <div class="tab"
+           [ngClass]="selectedTab === 'main' ? 'selected' : ''"
+           (click)="onTabClick('main')"
+      >
+        Основные данные
       </div>
-    </ng-container>
-    <ng-template #lk>
-      <div class="tabs">
-        <div class="tab"
-             [ngClass]="selectedTab === 'main' ? 'selected' : ''"
-             (click)="onTabClick('main')"
-        >
-          Основные данные
-        </div>
-        <div class="tab"
-             [ngClass]="selectedTab === 'tickets' ? 'selected' : ''"
-             (click)="onTabClick('tickets')"
-        >
-          Талоны
-        </div>
-        <div class="tab"
-             [ngClass]="selectedTab === 'prescriptions' ? 'selected' : ''"
-             (click)="onTabClick('prescriptions')"
-        >
-          Назначения
-        </div>
-        <div class="tab"
-             [ngClass]="selectedTab === 'support' ? 'selected' : ''"
-             (click)="onTabClick('support')"
-        >
-          Служба поддержки
-        </div>
+      <div class="tab"
+           [ngClass]="selectedTab === 'tickets' ? 'selected' : ''"
+           (click)="onTabClick('tickets')"
+      >
+        Талоны
       </div>
-    </ng-template>
+    </div>
 
     <ng-container [ngSwitch]="selectedTab">
       <ng-container *ngSwitchCase="'main'">
@@ -45,12 +25,6 @@
       <ng-container *ngSwitchCase="'tickets'">
         <ng-content *ngTemplateOutlet="tickets"></ng-content>
       </ng-container>
-      <ng-container *ngSwitchCase="'prescriptions'">
-        <ng-content *ngTemplateOutlet="prescriptions"></ng-content>
-      </ng-container>
-      <ng-container *ngSwitchCase="'support'">
-        <ng-content *ngTemplateOutlet="support"></ng-content>
-      </ng-container>
     </ng-container>
   </div>
 </div>
@@ -58,10 +32,10 @@
 <ng-template #main>
   <ng-container [ngSwitch]="currentUser.role">
     Вы вошли как
-    <ng-container *ngSwitchCase="'PATIENT'">
+    <ng-container *ngSwitchCase="'ROLE_PATIENT'">
       <b>пациент</b>
     </ng-container>
-    <ng-container *ngSwitchCase="'DOCTOR'">
+    <ng-container *ngSwitchCase="'ROLE_DOCTOR'">
       <b>врач</b>
     </ng-container>
     <ng-container *ngSwitchCase="'ADMIN'">
@@ -76,34 +50,36 @@
            style="width: 140px; border-radius: 10px"
            alt="Фото профиля"
       />
-      <!--<a routerLink="profile/editAvatar">
-        <span style="font-size: 11pt">
-          Изменить фото
-        </span>
-      </a>-->
     </div>
     <!-- main data -->
     <div style="display: flex; flex-direction: column; margin-left: 25px;">
       <data-field [name]="'Фамилия, имя, отчество'"
-                  [value]="currentUser.name()"
+                  [value]="getCurrentUserName()"
       ></data-field>
-      <!-- for doctor -->
-      <ng-container *ngIf="currentDoctor">
-        <data-field [name]="'Специализация'"
-                    [value]="currentDoctor.specialization.name"
-        ></data-field>
-        <data-field [name]="'Кабинет'"
-                    [value]="currentDoctor.cabinet.name"
-        ></data-field>
-      </ng-container>
-      <!-- for patient -->
-      <ng-container *ngIf="currentPatient">
-        <data-field [name]="'Дата рождения'"
-                    [value]="currentPatient.birthday"
-        ></data-field>
-        <data-field [name]="'Полис ОМС'"
-                    [value]="currentPatient.insurancePolicyNumber"
-        ></data-field>
+
+      <ng-container [ngSwitch]="currentUser.role">
+        <!-- for doctor -->
+        <ng-container *ngSwitchCase="'ROLE_DOCTOR'">
+          <data-field [name]="'Специализация'"
+                      [value]="currentUser.specialization"
+          ></data-field>
+          <data-field [name]="'Кабинет'"
+                      [value]="currentUser.cabinet.name"
+          ></data-field>
+        </ng-container>
+        <!-- for patient -->
+        <ng-container *ngSwitchCase="'ROLE_PATIENT'">
+          <data-field [name]="'Дата рождения'"
+                      [value]="currentUser.birthday"
+          ></data-field>
+          <data-field [name]="'Полис ОМС'"
+                      [value]="currentUser.insurancePolicyNumber"
+          ></data-field>
+          <data-field [name]="'Адрес регистрации'"
+                      [value]="currentUser.registrationAddress"
+          ></data-field>
+        </ng-container>
+
       </ng-container>
     </div>
   </div>
@@ -150,7 +126,7 @@
 
         <div class="controls">
           <ng-container [ngSwitch]="currentUser.role">
-            <ng-container *ngSwitchCase="'PATIENT'">
+            <ng-container *ngSwitchCase="'ROLE_PATIENT'">
               <popup *ngIf="ticket.prescriptions"
                      [popupTitle]="'Мои назначения'"
                      [buttonTitle]="'Мои назначения'"
@@ -184,7 +160,7 @@
                 Вы действительно хотите отменить талон?
               </popup>
             </ng-container>
-            <ng-container *ngSwitchCase="'DOCTOR'">
+            <ng-container *ngSwitchCase="'ROLE_DOCTOR'">
               <popup [popupTitle]="'Добавить назначения для пациента'"
                      [buttonTitle]="ticket.prescriptions ? 'Назначения' : 'Добавить назначения'"
                      [styles]="'outline available-width'"
@@ -236,116 +212,6 @@
               </popup>
             </ng-container>
           </ng-container>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #prescriptions>
-  Назначения, которые получил пациент или сформировал врач.
-
-  <div class="tickets">
-    <div class="ticket">
-      <div class="ticket__header">
-        Назначение врача по талону № 3
-      </div>
-      <div class="ticket__content">
-        <div class="data">
-          <data-field [name]="'Пациент'"
-                      [value]="'Комаров Сергей Геннадьевич'"
-          ></data-field>
-          <data-field [name]="'Врач'"
-                      [value]="'Лечилов Александр Георгиевич'"
-          ></data-field>
-          <data-field [name]="'Назначение'"
-                      [value]="'Пиво, водка, кислота наши лучшие друзья'"
-          ></data-field>
-        </div>
-
-        <div class="controls">
-          <popup [popupTitle]="'Просмотр талона'"
-                 [buttonTitle]="'Талон'"
-                 [styles]="'outline available-width'"
-          >
-            <!-- ticket -->
-            <div class="tickets">
-              <div class="ticket in-popup">
-                <div class="ticket__header">
-                  Талон № 3
-                </div>
-                <div class="ticket__content">
-                  <div class="data">
-                    <data-field [name]="'Пациент'"
-                                [value]="'Комаров Сергей Геннадьевич'"
-                    ></data-field>
-                    <data-field [name]="'Время приема'"
-                                [value]="'21.11.2020 16:30'"
-                    ></data-field>
-                    <data-field [name]="'Врач'"
-                                [value]="'Кромсалов Ганнибал Лекторович'"
-                    ></data-field>
-                    <data-field [name]="'Кабинет'"
-                                [value]="'32'"
-                    ></data-field>
-                    <data-field [name]="'Специализация'"
-                                [value]="'хирург'"
-                    ></data-field>
-                    <data-field [name]="'Полис ОМС пациента'"
-                                [value]="'0000-0000 00 000'"
-                    ></data-field>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- / -->
-          </popup>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #support>
-  Служба поддержки работает 24/7, чтобы Вы могли получать качественные услуги.
-
-  <div class="tickets">
-    <div class="ticket">
-      <div class="ticket__header">
-        Обращение в поддержку №1
-      </div>
-      <div class="ticket__content">
-        <div class="data">
-          <div class="support-ticket-status opened"></div>
-
-          <data-field [name]="'Логин пользователя'"
-                      [value]="'+78005553535'"
-          ></data-field>
-          <data-field [name]="'С чем возникла проблема:'"
-                      [value]="'Запись на прием'"
-          ></data-field>
-          <data-field [name]="'Описание проблемы'"
-                      [value]="'Я куда-то нажал и оно всё сломалось. Почините.'"
-          ></data-field>
-        </div>
-
-        <div class="controls">
-          <popup [popupTitle]="'Служба поддержки'"
-                 [buttonTitle]="'Открыть чат'"
-                 [styles]="'available-width'"
-                 [customButtons]="[supportChatButton]"
-          >
-            <!-- chat -->
-            <chat></chat>
-            <!-- / -->
-          </popup>
-          <popup [popupTitle]="'Закрыть обращение?'"
-                 [buttonTitle]="'Закрыть обращение'"
-                 [styles]="'reject-button available-width'"
-                 [type]="'confirm'"
-          >
-            Вы точно хотите закрыть обращение?
-          </popup>
         </div>
       </div>
     </div>

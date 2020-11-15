@@ -1,8 +1,6 @@
 import {User} from "./user.model";
 
-export class Doctor {
-  id: number;
-  user: User;
+export class Doctor extends User {
   specialization: Specialization;
   cabinet: Cabinet;
   isWorkingNow: boolean;

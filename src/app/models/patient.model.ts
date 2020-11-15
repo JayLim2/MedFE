@@ -1,9 +1,7 @@
 import {User} from "./user.model";
 
-export class Patient {
-  id: number;
+export class Patient extends User {
   registrationAddress: string;
   birthday: string;
-  user: User;
   insurancePolicyNumber: string;
 }

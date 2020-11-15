@@ -1,6 +1,7 @@
 import {Role} from "./role.model";
 
 export class User {
+  id: number;
   phone: string;
   password: string;
   email: string;
@@ -8,7 +9,6 @@ export class User {
   firstName: string;
   lastName: string;
   middleName?: string;
-
 
   constructor(phone: string, password: string,
               email: string, role: Role,
@@ -20,10 +20,6 @@ export class User {
     this.firstName = firstName;
     this.lastName = lastName;
     this.middleName = middleName;
-  }
-
-  name(): string {
-    return `${this.lastName} ${this.firstName} ${this.middleName}`;
   }
 
 }

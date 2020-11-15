@@ -3,11 +3,11 @@
     Вход в личный кабинет
   </div>
   <div class="container__login-form">
-    <ng-container *ngIf="authenticationResult">
-      <div class="message"
-           [ngClass]="authenticationResult.status"
+    <ng-container *ngIf="authenticationService.errorMessage">
+      <div class="message error"
+           [ngClass]="'error'"
       >
-        {{authenticationResult.message}}
+        {{authenticationService.errorMessage}}
       </div>
     </ng-container>
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">

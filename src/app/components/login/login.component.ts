@@ -4,11 +4,6 @@ import {AuthenticationService} from '../../../services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from "rxjs/operators";
 
-interface AuthenticationResult {
-  status: string;
-  message: string;
-}
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,12 +11,11 @@ interface AuthenticationResult {
 })
 export class LoginComponent implements OnInit {
 
-  public authenticationResult: AuthenticationResult;
   public loginForm: FormGroup;
   private _returnUrl: string;
 
   constructor(
-    private authenticationService: AuthenticationService,
+    public authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -32,7 +26,6 @@ export class LoginComponent implements OnInit {
       login: new FormControl(''),
       password: new FormControl('')
     });
-
     this._returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 

@@ -9,16 +9,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RestService} from "../services/rest.service";
 import {CreateTicketFormComponent} from './components/create-ticket-form/create-ticket-form.component';
-import {TicketsComponent} from './components/tickets/tickets.component';
-import {TicketPageComponent} from './components/ticket-page/ticket-page.component';
 import {HelpComponent} from './components/help/help.component';
 import {ProfileComponent} from './components/profile/profile.component';
-import {LogoutComponent} from './components/logout/logout.component';
 import {DataFieldComponent} from './components/data-field/data-field.component';
 import {RegisterComponent} from './components/register/register.component';
 import {PopupComponent} from './components/popup/popup.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ChatComponent} from './components/chat/chat.component';
 import {DoctorsCatalogComponent} from './components/doctors-catalog/doctors-catalog.component';
 import {MedServicesCatalogComponent} from './components/med-services-catalog/med-services-catalog.component';
 import {BasicAuthInterceptor} from "./helpers/basic-auth.interceptor";
@@ -31,15 +27,11 @@ import {FakeBackendInterceptor} from "./helpers/fake-backend.interceptor";
     LoginComponent,
     HomeComponent,
     CreateTicketFormComponent,
-    TicketsComponent,
-    TicketPageComponent,
     HelpComponent,
     ProfileComponent,
-    LogoutComponent,
     DataFieldComponent,
     RegisterComponent,
     PopupComponent,
-    ChatComponent,
     DoctorsCatalogComponent,
     MedServicesCatalogComponent
   ],

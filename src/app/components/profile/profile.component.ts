@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../../services/authentication.service";
 import {CustomButton} from "../popup/popup.component";
 import {PatientTicketsService} from "../../../services/patient-tickets.service";
 import {PatientTicket} from "../../models/patient-ticket.model";
-import {User} from "../../models/user.model";
 import {Role} from "../../models/role.model";
 import {Patient} from "../../models/patient.model";
 import {Doctor} from "../../models/doctor.model";
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'app-profile',
@@ -17,27 +17,15 @@ export class ProfileComponent implements OnInit {
 
   /* TODO Сделать не ручные флаги! */
 
-  public currentUser: User;
-  public currentPatient: Patient;
-  public currentDoctor: Doctor;
-
+  public currentUser: any;
+  private _patientTicketsList: PatientTicket[];
   public selectedTab: string = 'main';
-
-  public supportChatButton: CustomButton = {
-    title: "Отправить сообщение",
-    onClick: () => {
-      alert("Сообщение отправлено в службу поддержки.");
-    }
-  }
-
   public savePrescriptionButton: CustomButton = {
     title: "Добавить назначения",
     onClick: () => {
       alert("Назначения сохранены.");
     }
   }
-
-  private _patientTicketsList: PatientTicket[];
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -50,58 +38,48 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedTab = localStorage.getItem("selectedTab");
-    this.patientTicketsService.getByUser(null)
-      .subscribe((tickets) => {
-        this._patientTicketsList = tickets;
-      }, (error) => {
-        console.error(error);
-      });
-    this.currentUser = Math.random() > 0.5 ? new User(
-      "8-800-555-77-99",
-      null,
-      "terminator_____000077777___huy@example.com",
-      Role.PATIENT,
-      "Сергей",
-      "Комаров",
-      "Геннадьевич"
-    ) : new User(
-      "8-800-555-35-35",
-      null,
-      "sexotron777@example.com",
-      Role.DOCTOR,
-      "Иван",
-      "Лечилов",
-      "Денисович"
-    );
-    if(this.currentUser.role === 'PATIENT') {
-      let patient: Patient = new Patient();
-      patient.id = 1502340;
-      patient.user = this.currentUser;
-      patient.insurancePolicyNumber = "000000011111122222";
-      patient.birthday = "18.02.1998";
-      patient.registrationAddress = "г. Самара, ул. Авроры, д.122, кв.342";
+    let savedTab = localStorage.getItem("selectedTab");
+    if (savedTab) {
+      this.selectedTab = savedTab;
+    }
 
-      this.currentPatient = patient;
-    }
-    if(this.currentUser.role === 'DOCTOR') {
-      this.currentDoctor = {
-        id: 1,
-        user: this.currentUser,
-        specialization: {
-          name: "Врач общей практики"
-        },
-        cabinet: {
-          name: "A101"
-        },
-        isWorkingNow: true
-      };
-    }
+    this.authenticationService.currentUser
+      .subscribe((currentUser: any) => {
+        if (currentUser) {
+          this.currentUser = currentUser;
+          switch (this.currentUser.role) {
+            case Role.ROLE_PATIENT:
+              this.patientTicketsService.getByPatient(this.currentUser as Patient)
+                .subscribe((tickets) => {
+                  this._patientTicketsList = tickets;
+                }, (error) => {
+                  console.error(error);
+                });
+              break;
+            case Role.ROLE_DOCTOR:
+              this.patientTicketsService.getByDoctor(this.currentUser as Doctor)
+                .subscribe((tickets) => {
+                  this._patientTicketsList = tickets;
+                }, (error) => {
+                  console.error(error);
+                });
+              break;
+          }
+        }
+      })
   }
 
   onTabClick(tab: string): void {
-    this.selectedTab = tab;
-    localStorage.setItem("selectedTab", tab);
+    switch (tab) {
+      case 'main':
+      case 'tickets':
+        this.selectedTab = tab;
+        localStorage.setItem("selectedTab", tab);
+    }
+  }
+
+  getCurrentUserName(): string {
+    return `${this.currentUser.lastName} ${this.currentUser.firstName} ${this.currentUser.middleName ? this.currentUser.middleName : ''}`;
   }
 
 }

@@ -10,7 +10,7 @@ let user = new User(
   '111-22-33',
   'root',
   'email',
-  Role.PATIENT,
+  Role.ROLE_PATIENT,
   'Sergei',
   'Komarov',
   "Gennadievich"
