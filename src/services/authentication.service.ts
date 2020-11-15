@@ -1,57 +1,44 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Validators} from '../utils/Validators';
-import {RestService} from './rest.service';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
 
-export class Session {
-  login: string;
-  role: string;
-}
+import {User} from "../app/models/user.model";
+import {environment} from "../environments/environment.prod";
+import {map} from "rxjs/operators";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
 
-  private static SESSION_PARAMS = ["login", "role"];
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
-  constructor(
-    private restService: RestService
-  ) {
-  }
-
-  public authenticate(login: string, password: string): Observable<any> {
-    const validationResult = Validators.validateCredentials(login, password);
-    if (validationResult) {
-      throw new Error(validationResult);
-    }
-
-    return this.restService.post(
-      'login',
-      {
-        username: login,
-        password
-      }
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem('currentUser'))
     );
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public setSession(session: Session): void {
-    if (session) {
-      for (const sessionParam of AuthenticationService.SESSION_PARAMS) {
-        localStorage.setItem(sessionParam, session[sessionParam]);
-      }
-    }
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
   }
 
-  public resetSession(): void {
-    localStorage.clear();
+  login(phone: string, password: string) {
+    return this.http.get<any>(
+      `${environment.routes.api}/users/get/${phone}`
+    ).pipe(map((user) => {
+      // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
+      let token = window.btoa(phone + ':' + password);
+      localStorage.setItem('token', token);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user);
+    }));
   }
 
-  public isAuthenticated(): boolean {
-    let isAuthenticated = true;
-    for (const sessionParam of AuthenticationService.SESSION_PARAMS) {
-      isAuthenticated = isAuthenticated && !!localStorage.getItem(sessionParam);
-    }
-    return isAuthenticated;
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 }

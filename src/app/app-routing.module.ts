@@ -11,20 +11,21 @@ import {LogoutComponent} from "./components/logout/logout.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {DoctorsCatalogComponent} from "./components/doctors-catalog/doctors-catalog.component";
 import {MedServicesCatalogComponent} from "./components/med-services-catalog/med-services-catalog.component";
+import {AuthGuard} from "./helpers/auth.guard";
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
-  {path: 'tickets', component: TicketsComponent},
-  {path: 'tickets/view/:ticketId', component: TicketPageComponent},
-  {path: 'tickets/create', component: CreateTicketFormComponent},
+  {path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard]},
+  {path: 'tickets/view/:ticketId', component: TicketPageComponent, canActivate: [AuthGuard]},
+  {path: 'tickets/create', component: CreateTicketFormComponent, canActivate: [AuthGuard]},
   {path: 'help', component: HelpComponent},
   {path: 'catalog/doctors', component: DoctorsCatalogComponent},
   {path: 'catalog/medServices', component: MedServicesCatalogComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

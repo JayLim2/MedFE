@@ -59,6 +59,7 @@ export class ProfileComponent implements OnInit {
       });
     this.currentUser = Math.random() > 0.5 ? new User(
       "8-800-555-77-99",
+      null,
       "terminator_____000077777___huy@example.com",
       Role.PATIENT,
       "Сергей",
@@ -66,6 +67,7 @@ export class ProfileComponent implements OnInit {
       "Геннадьевич"
     ) : new User(
       "8-800-555-35-35",
+      null,
       "sexotron777@example.com",
       Role.DOCTOR,
       "Иван",

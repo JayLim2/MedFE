@@ -25,6 +25,7 @@ export class PatientTicketsService {
     if(true) {
       let patientUser: User = new User(
         "8-800-555-77-99",
+        null,
         "terminator_____000077777___huy@example.com",
         Role.PATIENT,
         "Сергей",
@@ -40,6 +41,7 @@ export class PatientTicketsService {
 
       let doctorUser: User = new User(
         "8-800-555-35-35",
+        null,
         "sexotron777@example.com",
         Role.DOCTOR,
         "Иван",

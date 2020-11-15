@@ -19,6 +19,7 @@ export class DoctorsService {
       let doctors: Doctor[] = [];
       let user: User = new User(
         "8-800-555-35-35",
+        null,
         "sexotron777@example.com",
         Role.DOCTOR,
         "Иван",

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {AuthenticationService, Session} from '../../../services/authentication.service';
-import {Router} from '@angular/router';
+import {AuthenticationService} from '../../../services/authentication.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {first} from "rxjs/operators";
 
 interface AuthenticationResult {
   status: string;
@@ -17,9 +18,11 @@ export class LoginComponent implements OnInit {
 
   public authenticationResult: AuthenticationResult;
   public loginForm: FormGroup;
+  private _returnUrl: string;
 
   constructor(
     private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
     private router: Router
   ) {
   }
@@ -29,33 +32,21 @@ export class LoginComponent implements OnInit {
       login: new FormControl(''),
       password: new FormControl('')
     });
+
+    this._returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onLogin(): void {
     const credentials = this.loginForm.value;
-    const response = this.authenticationService.authenticate(credentials.login, credentials.password);
-    response.subscribe((data: { message: string, authenticated: boolean, session: Session }) => {
-      switch (data.message) {
-        case 'OK':
-          this.authenticationResult = {
-            message: 'Вы вошли.',
-            status: 'success'
-          };
-          break;
-        case 'NOT_FOUND':
-          this.authenticationResult = {
-            message: 'Проверьте логин и пароль.',
-            status: 'error'
-          };
-          break;
-      }
-      if (data.authenticated) {
-        this.authenticationService.setSession(data.session);
-        this.router.navigateByUrl('');
-      }
-    }, (error) => {
-      console.error('Error: ', error);
-    });
+    this.authenticationService.login(
+      credentials.login,
+      credentials.password
+    ).pipe(first())
+      .subscribe(() => {
+        this.router.navigateByUrl(this._returnUrl ? this._returnUrl : '');
+      }, (error) => {
+        console.error(error);
+      });
   }
 
 }

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthenticationService, Session} from "../../../services/authentication.service";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'app-home',
@@ -11,16 +10,12 @@ export class HomeComponent implements OnInit {
 
   userMessage: string
 
-  constructor(
-    private authenticationService: AuthenticationService,
-    private router: Router
-  ) { }
+  constructor() {
+  }
 
   ngOnInit(): void {
-    const login = localStorage.getItem("login");
-    const role = localStorage.getItem("role");
-
-    this.userMessage = login && role ? `${login}` : null;
+    const user: User = JSON.parse(localStorage.getItem("currentUser"));
+    this.userMessage = user && user.phone && user.role ? `${user.phone}` : null;
   }
 
 }

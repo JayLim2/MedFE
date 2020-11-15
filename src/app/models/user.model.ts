@@ -2,6 +2,7 @@ import {Role} from "./role.model";
 
 export class User {
   phone: string;
+  password: string;
   email: string;
   role: Role;
   firstName: string;
@@ -9,7 +10,8 @@ export class User {
   middleName?: string;
 
 
-  constructor(phone: string, email: string, role: Role,
+  constructor(phone: string, password: string,
+              email: string, role: Role,
               firstName: string, lastName: string, middleName: string) {
 
     this.phone = phone;

@@ -1,56 +1,83 @@
-<div class="root">
-  <header class="header">
-    <div class="header__title-block">
-    <span class="header__title-block_title">
-      <span class="header__title-block_title">
-        <b class="logo_blue">мед</b>
-        <b class="logo_red">услуги</b>
-      </span>
-    </span>
-    </div>
+<ng-container *ngIf="healthChecker.loading; then loading"></ng-container>
+<ng-container *ngIf="!healthChecker.loading && !healthChecker.isServiceHealthy; then serviceUnavailable"></ng-container>
+<ng-container *ngIf="!healthChecker.loading && healthChecker.isServiceHealthy; then main"></ng-container>
 
-    <div class="header__menu-block">
-      <div class="header__menu-block_item"
-           routerLink=""
-      >Главная
-      </div>
-      <div class="header__menu-block_item"
-           routerLink="help"
-      >Помощь
-      </div>
-      <div class="header__menu-block_item"
-           routerLink="catalog/doctors"
-      >Врачи
-      </div>
-      <div class="header__menu-block_item"
-           routerLink="catalog/medServices"
-      >Услуги
+<ng-template #logo>
+  <span class="header__title-block_title">
+    <b class="logo_blue">мед</b>
+    <b class="logo_red">услуги</b>
+  </span>
+</ng-template>
+
+<ng-template #loading>
+  <div style="display: flex; width: 100%; height: 100%; align-items: center; justify-content: center;">
+    <ng-container [ngTemplateOutlet]="logo"></ng-container>
+    <div class="loader"></div>
+  </div>
+</ng-template>
+
+<ng-template #serviceUnavailable>
+  <div class="root" style="padding: 100px;">
+    <main style="flex: 1 0 auto;">
+      <h1>Сервис временно недоступен</h1>
+      <h4>Скоро всё будет хорошо.</h4>
+    </main>
+    <footer style="flex: 0 0 auto;">
+      <ng-container [ngTemplateOutlet]="logo"></ng-container>
+    </footer>
+  </div>
+</ng-template>
+
+<ng-template #main>
+  <div class="root">
+    <header class="header">
+      <div class="header__title-block">
+        <ng-container [ngTemplateOutlet]="logo"></ng-container>
       </div>
 
-      <ng-container *ngIf="this.authenticationService.isAuthenticated(); else unauthorizedUserMenu">
+      <div class="header__menu-block">
         <div class="header__menu-block_item"
-             routerLink="profile"
-        >Мой личный кабинет
+             routerLink=""
+        >Главная
         </div>
         <div class="header__menu-block_item"
-             routerLink="logout"
-        >Выйти
+             routerLink="help"
+        >Помощь
         </div>
-      </ng-container>
-      <ng-template #unauthorizedUserMenu>
         <div class="header__menu-block_item"
-             routerLink="login"
-        >Войти
+             routerLink="catalog/doctors"
+        >Врачи
         </div>
-      </ng-template>
-    </div>
-  </header>
+        <div class="header__menu-block_item"
+             routerLink="catalog/medServices"
+        >Услуги
+        </div>
 
-  <main class="body">
-    <router-outlet></router-outlet>
-  </main>
+        <ng-container *ngIf="currentUser; else unauthorizedUserMenu">
+          <div class="header__menu-block_item"
+               routerLink="profile"
+          >Мой личный кабинет
+          </div>
+          <div class="header__menu-block_item"
+               routerLink="logout"
+          >Выйти
+          </div>
+        </ng-container>
+        <ng-template #unauthorizedUserMenu>
+          <div class="header__menu-block_item"
+               routerLink="login"
+          >Войти
+          </div>
+        </ng-template>
+      </div>
+    </header>
 
-  <footer class="footer">
-    &copy; Разработано студентами группы 6223-090401D Самарского университета, 2020.
-  </footer>
-</div>
+    <main class="body">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="footer">
+      &copy; Разработано студентами группы 6223-090401D Самарского университета, 2020.
+    </footer>
+  </div>
+</ng-template>
