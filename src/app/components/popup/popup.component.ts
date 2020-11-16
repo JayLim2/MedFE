@@ -6,6 +6,7 @@ export class CustomButton {
   onClick: (parameters: object) => any;
   onClickParams?: object = {};
   styles?: string = '';
+  disabled?: boolean = false;
 }
 
 @Component({
@@ -25,6 +26,10 @@ export class PopupComponent implements OnInit {
   type: string = 'info';
   @Input()
   customButtons: CustomButton[] = [];
+  @Input()
+  onConfirm?: any = () => {};
+  @Input()
+  onReject?: any = () => {};
 
   isApproved: boolean = false;
 
@@ -38,17 +43,21 @@ export class PopupComponent implements OnInit {
     this.modalService
       .open(content, {ariaLabelledBy: 'modal-basic-title'})
       .result
-      .then((result) => {}, (reason) => {});
+      .then((result) => {
+      }, (reason) => {
+      });
   }
 
   onClose(modal: any, event: string): void {
     switch (this.type) {
       case 'confirm':
         this.isApproved = event === 'approve';
-        if(this.isApproved) {
+        if (this.isApproved) {
           console.log("Confirmed");
+          this.onConfirm();
         } else {
           console.log("Rejected");
+          this.onReject();
         }
         break;
       default:

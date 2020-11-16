@@ -29,4 +29,8 @@ export class PatientTicketsService {
     return this.restService.put(`${this.commonUrl}/save`, patientTicket);
   }
 
+  public delete(patientTicket: PatientTicket): Observable<any> {
+    return this.restService.delete(`${this.commonUrl}/delete/${patientTicket.id}`);
+  }
+
 }
