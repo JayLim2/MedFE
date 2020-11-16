@@ -23,13 +23,13 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(phone: string, password: string) {
+  login(login: string, password: string) {
     return this.http.get<any>(
-      `${environment.routes.api}/users/get/${phone}`
+      `${environment.routes.api}/users/get/login/${login}`
     ).pipe(map((user) => {
       if (user) {
         // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-        let token = window.btoa(phone + ':' + password);
+        let token = window.btoa(login + ':' + password);
         localStorage.setItem('token', token);
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
