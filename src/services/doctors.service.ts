@@ -8,12 +8,18 @@ import {RestService} from "./rest.service";
 })
 export class DoctorsService {
 
+  private commonUrl: string = `api/doctors`;
+
   constructor(
     private restService: RestService
   ) { }
 
   public getAll(): Observable<Doctor[]> {
-    return this.restService.get("/api/doctors/get/all");
+    return this.restService.get(`${this.commonUrl}/get/all`);
+  }
+
+  public getBySpecialization(specializationName: string): Observable<Doctor[]> {
+    return this.restService.get(`${this.commonUrl}/get/spec/${specializationName}`);
   }
 
 }

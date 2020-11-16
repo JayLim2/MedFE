@@ -8,7 +8,8 @@ import {map} from "rxjs/operators";
 export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<any>;
-  public currentUser: Observable<any>;
+  public currentUserObservable: Observable<any>;
+  public currentUser: any;
 
   public errorMessage: string = null;
 
@@ -16,7 +17,7 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<any>(
       JSON.parse(localStorage.getItem('currentUser'))
     );
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserObservable = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): any {

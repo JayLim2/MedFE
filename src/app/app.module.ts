@@ -20,6 +20,7 @@ import {MedServicesCatalogComponent} from './components/med-services-catalog/med
 import {BasicAuthInterceptor} from "./helpers/basic-auth.interceptor";
 import {ErrorInterceptor} from "./helpers/error.interceptor";
 import {FakeBackendInterceptor} from "./helpers/fake-backend.interceptor";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -35,14 +36,15 @@ import {FakeBackendInterceptor} from "./helpers/fake-backend.interceptor";
     DoctorsCatalogComponent,
     MedServicesCatalogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgbModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgbModule,
+        NgxSpinnerModule
+    ],
   providers: [
     RestService,
     {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true},

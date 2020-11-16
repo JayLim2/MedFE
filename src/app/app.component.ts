@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private router: Router
   ) {
-    this.authenticationService.currentUser
+    this.authenticationService.currentUserObservable
       .subscribe(currentUser => {
         this.currentUser = currentUser;
       })

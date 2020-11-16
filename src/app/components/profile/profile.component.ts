@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
       this.selectedTab = savedTab;
     }
 
-    this.authenticationService.currentUser
+    this.authenticationService.currentUserObservable
       .subscribe((currentUser: any) => {
         if (currentUser) {
           this.currentUser = currentUser;

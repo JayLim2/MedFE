@@ -5,17 +5,23 @@
   <div class="page__content">
     Выберите врача и удобное время для посещения поликлиники.
 
-    <form style="display: flex; flex-direction: column">
+    <ngx-spinner></ngx-spinner>
+
+    <form style="display: flex; flex-direction: column"
+          [formGroup]="form"
+          (ngSubmit)="onCreateTicket()"
+    >
       <div class="form-field">
         <div class="form-field__control-container">
           <div class="form-field__label_required">
             Специализация врача:
           </div>
-          <select>
-            <option>Любая</option>
-            <option>Терапевт</option>
-            <option>Травмотолог</option>
-            <option>Хирург</option>
+          <select formControlName="specialization"
+                  (change)="onSelectSpecialization($event)"
+          >
+            <option *ngFor="let specialization of specializations"
+                    [value]="specialization.name"
+            >{{specialization.name}}</option>
           </select>
         </div>
 
@@ -30,10 +36,14 @@
           <div class="form-field__label_required">
             Врач:
           </div>
-          <select>
-            <option>Лечилов Александр Георгиевич</option>
-            <option>Кромсалов Ганнибал Лекторович</option>
-            <option>Калеченко Георгий Сигизмундович</option>
+          <select formControlName="doctor"
+                  (change)="onSelectDoctor($event)"
+          >
+            <option *ngFor="let doctor of doctors"
+                    [value]="doctor.id"
+            >
+              {{doctor.lastName + ' ' + doctor.firstName + ' ' + (doctor.middleName ? doctor.middleName : '')}}
+            </option>
           </select>
         </div>
       </div>
@@ -43,14 +53,13 @@
           <div class="form-field__label_required">
             Дата и время приема:
           </div>
-          <input type="datetime-local"/>
+          <input formControlName="dateTime"
+                 type="datetime-local"/>
         </div>
 
         <div class="form-field__hint">
           Если ячейка календаря выделена серым цветом, значит это выходной день,
           талоны закончились или врач не принимиает в выбранное время.
-          <br/><br/>
-          <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
         </div>
       </div>
 

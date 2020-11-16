@@ -25,4 +25,8 @@ export class PatientTicketsService {
     return this.restService.get(`${this.commonUrl}/get/doctor/${doctor.id}`);
   }
 
+  public save(patientTicket: any): Observable<any> {
+    return this.restService.put(`${this.commonUrl}/save`, patientTicket);
+  }
+
 }
