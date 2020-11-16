@@ -13,7 +13,7 @@ export class DoctorsService {
   ) { }
 
   public getAll(): Observable<Doctor[]> {
-    return this.restService.get("/api/doctors/get/all");
+    return this.restService.get("api/doctors/get/all");
   }
 
 }
