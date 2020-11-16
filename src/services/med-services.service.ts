@@ -14,7 +14,7 @@ export class MedServicesService {
   }
 
   public getAll(): Observable<MedService[]> {
-    return this.restService.get("/api/medServices/get/all");
+    return this.restService.get("api/medServices/get/all");
   }
 
 }

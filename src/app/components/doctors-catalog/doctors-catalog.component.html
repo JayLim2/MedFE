@@ -16,7 +16,7 @@
            class="list__item"
       >
         <div class="list__item__header">
-          {{doctor.user.name()}}
+          {{[doctor.firstName, doctor.lastName, doctor.middleName || ""].join(" ")}}
         </div>
         <div class="list__item__content">
           <div class="data">
@@ -27,7 +27,7 @@
                         [value]="doctor.cabinet.name"
             ></data-field>
             <data-field [name]="'Контактный телефон'"
-                        [value]="doctor.user.phone"
+                        [value]="doctor.phone"
             ></data-field>
             <data-field [name]="'Принимает пациентов'"
                         [value]="doctor.isWorkingNow ? 'Да' : 'Нет'"
@@ -38,7 +38,8 @@
             <button class="button medium"
                     [ngClass]="'available-width'"
                     (click)="onCreatePatientTicket(doctor.id)"
-            >Записаться на прием</button>
+            >Записаться на прием
+            </button>
           </div>
         </div>
       </div>
