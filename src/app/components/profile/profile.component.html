@@ -105,13 +105,13 @@
       <div class="ticket__content">
         <div class="data">
           <data-field [name]="'Пациент'"
-                      [value]="ticket.patient.user.name()"
+                      [value]="[ticket.patient.lastName, ticket.patient.firstName, ticket.patient.middleName || ''].join(' ')"
           ></data-field>
           <data-field [name]="'Время приема'"
                       [value]="ticket.datetime"
           ></data-field>
           <data-field [name]="'Врач'"
-                      [value]="ticket.doctor.user.name()"
+                      [value]="[ticket.doctor.lastName, ticket.doctor.firstName, ticket.doctor.middleName || ''].join(' ')"
           ></data-field>
           <data-field [name]="'Кабинет'"
                       [value]="ticket.doctor.cabinet.name"
