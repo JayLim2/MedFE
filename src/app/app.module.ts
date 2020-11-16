@@ -21,6 +21,9 @@ import {BasicAuthInterceptor} from "./helpers/basic-auth.interceptor";
 import {ErrorInterceptor} from "./helpers/error.interceptor";
 import {FakeBackendInterceptor} from "./helpers/fake-backend.interceptor";
 import {NgxSpinnerModule} from "ngx-spinner";
+import {DatePipe} from "@angular/common";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DpDatePickerModule} from "ng2-date-picker";
 
 @NgModule({
   declarations: [
@@ -36,17 +39,20 @@ import {NgxSpinnerModule} from "ngx-spinner";
     DoctorsCatalogComponent,
     MedServicesCatalogComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgbModule,
-        NgxSpinnerModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
+    DpDatePickerModule,
+  ],
   providers: [
     RestService,
+    DatePipe,
     {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true}

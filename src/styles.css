@@ -82,17 +82,18 @@ a:hover {
 }
 input,
 select {
-  border: 2px solid #0065b1;
-  font-size: 14pt;
-  border-radius: 4px;
-  margin: 10px 0;
-  padding: 12px;
-  width: 400px;
+  border: 2px solid #0065b1 !important;
+  font-size: 14pt !important;
+  border-radius: 4px !important;
+  margin: 10px 0 !important;
+  padding: 12px !important;
+  width: 400px !important;
+  height: 50px !important;
 }
 input:hover,
 select:hover {
-  background: #eef8ff;
-  cursor: pointer;
+  background: #eef8ff !important;
+  cursor: pointer !important;
 }
 input[type="datetime-local"] {
   width: 372px;

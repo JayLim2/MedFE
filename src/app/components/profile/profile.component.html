@@ -32,10 +32,10 @@
 <ng-template #main>
   <ng-container [ngSwitch]="currentUser.role">
     Вы вошли как
-    <ng-container *ngSwitchCase="'ROLE_PATIENT'">
+    <ng-container *ngSwitchCase="'PATIENT'">
       <b>пациент</b>
     </ng-container>
-    <ng-container *ngSwitchCase="'ROLE_DOCTOR'">
+    <ng-container *ngSwitchCase="'DOCTOR'">
       <b>врач</b>
     </ng-container>
     <ng-container *ngSwitchCase="'ADMIN'">
@@ -59,7 +59,7 @@
 
       <ng-container [ngSwitch]="currentUser.role">
         <!-- for doctor -->
-        <ng-container *ngSwitchCase="'ROLE_DOCTOR'">
+        <ng-container *ngSwitchCase="'DOCTOR'">
           <data-field [name]="'Специализация'"
                       [value]="currentUser.specialization"
           ></data-field>
@@ -68,7 +68,7 @@
           ></data-field>
         </ng-container>
         <!-- for patient -->
-        <ng-container *ngSwitchCase="'ROLE_PATIENT'">
+        <ng-container *ngSwitchCase="'PATIENT'">
           <data-field [name]="'Дата рождения'"
                       [value]="currentUser.birthday"
           ></data-field>
@@ -126,7 +126,7 @@
 
         <div class="controls">
           <ng-container [ngSwitch]="currentUser.role">
-            <ng-container *ngSwitchCase="'ROLE_PATIENT'">
+            <ng-container *ngSwitchCase="'PATIENT'">
               <popup *ngIf="ticket.prescriptions"
                      [popupTitle]="'Мои назначения'"
                      [buttonTitle]="'Мои назначения'"
@@ -160,7 +160,7 @@
                 Вы действительно хотите отменить талон?
               </popup>
             </ng-container>
-            <ng-container *ngSwitchCase="'ROLE_DOCTOR'">
+            <ng-container *ngSwitchCase="'DOCTOR'">
               <popup [popupTitle]="'Добавить назначения для пациента'"
                      [buttonTitle]="ticket.prescriptions ? 'Назначения' : 'Добавить назначения'"
                      [styles]="'outline available-width'"

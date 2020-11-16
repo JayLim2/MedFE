@@ -53,8 +53,20 @@
           <div class="form-field__label_required">
             Дата и время приема:
           </div>
-          <input formControlName="dateTime"
-                 type="datetime-local"/>
+          <div class="dp-date-wrapper">
+            <div class="dp-date-input-container">
+              <div class="dp-form-item">
+                <dp-date-picker id="picker"
+                                [config]="config"
+                                [mode]="'daytime'"
+                                [theme]="material ? 'dp-material dp-main' : 'dp-main'"
+                                [displayDate]="displayDate"
+                                [placeholder]="placeholder"
+                                [formControlName]="'dateTime'"
+                ></dp-date-picker>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="form-field__hint">

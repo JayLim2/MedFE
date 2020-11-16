@@ -11,7 +11,7 @@
   font-family: Arial, serif;
 }
 
-html, body{
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -104,21 +104,22 @@ a {
 @input-control-width: 400px;
 
 .input-control {
-  border:2px solid rgb(0, 101, 177);
+  border: 2px solid rgb(0, 101, 177);
   font-size: 14pt;
   border-radius: 4px;
-  margin:10px 0;
+  margin: 10px 0;
   padding: 12px;
   width: @input-control-width;
 
   &:hover {
     background: lighten(rgb(187, 225, 255), 10%);
-    cursor:pointer;
+    cursor: pointer;
   }
 }
 
 input, select {
-  .input-control;
+  .input-control !important;
+  height: 50px !important;
 }
 
 input[type="datetime-local"] {
@@ -340,6 +341,10 @@ input[type="datetime-local"] {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

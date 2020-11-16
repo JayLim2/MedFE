@@ -1,13 +1,14 @@
-import {ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SpecializationsService} from "../../../services/specializations.service";
 import {Doctor, Specialization} from "../../models/doctor.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DoctorsService} from "../../../services/doctors.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {DateTimeService} from "../../../services/date-time.service";
-import {PatientTicket} from "../../models/patient-ticket.model";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {PatientTicketsService} from "../../../services/patient-tickets.service";
+import {IDatePickerConfig} from "ng2-date-picker";
+import {Moment} from "moment";
 
 @Component({
   selector: 'app-create-ticket-form',
@@ -16,13 +17,23 @@ import {PatientTicketsService} from "../../../services/patient-tickets.service";
 })
 export class CreateTicketFormComponent implements OnInit {
 
+  public selectedDate: any;
+  public config: IDatePickerConfig = {
+    format: "DD.MM.YYYY HH:mm",
+    showTwentyFourHours: true,
+    showSeconds: false,
+    minutesInterval: 30,
+    firstDayOfWeek: "mo"
+  }
+  public material: boolean = true;
+  public placeholder: string = 'Выберите дату приема';
+  public displayDate: Moment | string;
+
   private _defaultSpecialization = "Любая";
 
   private _specializations: Specialization[] = [];
   private _doctors: Doctor[] = [];
   private _availableDates: Date[] = [];
-
-  public selectedSpecialization = true;
 
   private _form: FormGroup;
 
@@ -135,7 +146,7 @@ export class CreateTicketFormComponent implements OnInit {
     if (list.length > 0) {
       this.form.get("doctor").setValue(list[0].id);
       //update available dates by doctor
-      this.dateTimeService.getAvailableDates(list[0])
+      this.dateTimeService.getAvailableDates(list[0], new Date())
         .subscribe((list: Date[] = []) => {
           this.setDates(list);
         }, (error) => {
@@ -144,10 +155,11 @@ export class CreateTicketFormComponent implements OnInit {
     }
   }
 
-  private setDates(list: Date[] = []) {
-    this._availableDates = list;
+  private setDates(list: any[] = []) {
+    list = list.map(dateStr => this.dateTimeService.stringToDate(dateStr));
+    this._availableDates = list.map(dateStr => this.dateTimeService.stringToDate(dateStr));
     if (list.length > 0) {
-      const firstDate = this.dateTimeService.dateToString(list[0]);
+      const firstDate = this.dateTimeService.dateToString(list[0], "dd.MM.yyyy HH:mm");
       this.form.get("dateTime").setValue(firstDate);
     }
     this.cdr.detectChanges();
