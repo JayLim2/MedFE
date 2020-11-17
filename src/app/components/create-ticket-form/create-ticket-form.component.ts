@@ -125,12 +125,12 @@ export class CreateTicketFormComponent implements OnInit {
     const value = this.form.value;
     let patientTicket = {
       doctor: {
-        id: value.doctor
+        id: +value.doctor
       },
       patient: {
         id: this.authenticationService.currentUserValue.id
       },
-      dateTime: new Date(value.dateTime)
+      dateTime: value.dateTime
     }
     this.patientTicketsService.save(patientTicket)
       .subscribe((saved) => {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 export class CustomButton {
@@ -26,10 +26,9 @@ export class PopupComponent implements OnInit {
   type: string = 'info';
   @Input()
   customButtons: CustomButton[] = [];
-  @Input()
-  onConfirm?: any = () => {};
-  @Input()
-  onReject?: any = () => {};
+  @Output() onConfirm: EventEmitter<any> = new EventEmitter();
+/*  @Input()
+  onReject?: any = () => {};*/
 
   isApproved: boolean = false;
 
@@ -54,10 +53,10 @@ export class PopupComponent implements OnInit {
         this.isApproved = event === 'approve';
         if (this.isApproved) {
           console.log("Confirmed");
-          this.onConfirm();
+          this.onConfirm.emit(null);
         } else {
           console.log("Rejected");
-          this.onReject();
+          //this.onReject();
         }
         break;
       default:

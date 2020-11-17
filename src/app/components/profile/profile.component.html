@@ -229,7 +229,7 @@
                      [buttonTitle]="'Отменить талон'"
                      [styles]="'reject-button available-width'"
                      [type]="'confirm'"
-                     [onConfirm]="onCancelTicket(ticket)"
+                     (onConfirm)="onCancelTicket($event)"
               >
                 Вы действительно хотите отменить талон?
               </popup>

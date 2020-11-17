@@ -78,7 +78,13 @@ export class ProfileComponent implements OnInit {
       .subscribe((currentUser: any) => {
         if (currentUser) {
           this.currentUser = currentUser;
-          switch (this.currentUser.role) {
+          this.patientTicketsService.getAll()
+            .subscribe((tickets) => {
+              this._patientTicketsList = tickets;
+            }, (error) => {
+              console.error(error);
+            });
+/*          switch (this.currentUser.role) {
             case Role.ROLE_PATIENT:
               this.patientTicketsService.getByPatient(this.currentUser as Patient)
                 .subscribe((tickets) => {
@@ -95,7 +101,7 @@ export class ProfileComponent implements OnInit {
                   console.error(error);
                 });
               break;
-          }
+          }*/
         }
       })
   }
@@ -134,6 +140,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onCancelTicket(ticket: PatientTicket) {
+    console.log(1245)
     this.patientTicketsService.delete(ticket)
       .subscribe((isDeleted) => {
         console.log(isDeleted); // TODO notification for user
