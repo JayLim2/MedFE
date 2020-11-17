@@ -26,9 +26,8 @@ export class PopupComponent implements OnInit {
   type: string = 'info';
   @Input()
   customButtons: CustomButton[] = [];
-  @Output() onConfirm: EventEmitter<any> = new EventEmitter();
-/*  @Input()
-  onReject?: any = () => {};*/
+  @Output()
+  onConfirm: EventEmitter<any> = new EventEmitter();
 
   isApproved: boolean = false;
 

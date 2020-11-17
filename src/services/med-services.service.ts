@@ -14,6 +14,20 @@ export class MedServicesService {
   }
 
   public getAll(): Observable<MedService[]> {
+    if(true) return of([
+      {
+        name: "Услуга 1",
+        description: "Описание услуги 1",
+        recommendations: "Рекомендации к услуги 1",
+        isAvailable: true
+      },
+      {
+        name: "Услуга 2",
+        description: "Описание услуги 2",
+        recommendations: "Рекомендации к услуги 2",
+        isAvailable: false
+      }
+    ])
     return this.restService.get("api/medServices/get/all");
   }
 
