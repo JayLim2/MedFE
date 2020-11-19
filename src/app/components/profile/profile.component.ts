@@ -11,6 +11,7 @@ import {IDatePickerConfig} from "ng2-date-picker";
 import {Moment} from "moment";
 import {tick} from "@angular/core/testing";
 import {NotificationService} from "../../../services/notification.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-profile',
@@ -42,7 +43,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     public authenticationService: AuthenticationService,
     private patientTicketsService: PatientTicketsService,
-    private ns: NotificationService
+    private ns: NotificationService,
+    private overlayService: NgxSpinnerService
   ) {
     this._prescriptionsForm = new FormGroup({
       prescriptions: new FormControl(null, Validators.required)
@@ -65,6 +67,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.overlayService.show();
+
     let savedTab = localStorage.getItem("selectedTab");
     if (savedTab) {
       this.selectedTab = savedTab;
@@ -79,6 +83,9 @@ export class ProfileComponent implements OnInit {
               this._patientTicketsList = tickets;
             }, (error) => {
               console.error(error);
+            })
+            .add(() => {
+              this.overlayService.hide();
             });
         }
       })
