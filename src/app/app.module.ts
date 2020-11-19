@@ -24,6 +24,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {DatePipe} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DpDatePickerModule} from "ng2-date-picker";
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {DpDatePickerModule} from "ng2-date-picker";
     RegisterComponent,
     PopupComponent,
     DoctorsCatalogComponent,
-    MedServicesCatalogComponent
+    MedServicesCatalogComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

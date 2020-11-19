@@ -10,6 +10,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IDatePickerConfig} from "ng2-date-picker";
 import {Moment} from "moment";
 import {tick} from "@angular/core/testing";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
   selector: 'app-profile',
@@ -26,13 +27,6 @@ export class ProfileComponent implements OnInit {
   public currentUser: any;
   private _patientTicketsList: PatientTicket[];
   public selectedTab: string = 'main';
-  public savePrescriptionButton: CustomButton = {
-    title: "Добавить назначения",
-    onClick: () => {
-      alert("Назначения сохранены.");
-    },
-    disabled: this.prescriptionsForm?.invalid
-  }
 
   public config: IDatePickerConfig = {
     format: "DD.MM.YYYY HH:mm",
@@ -47,7 +41,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private patientTicketsService: PatientTicketsService
+    private patientTicketsService: PatientTicketsService,
+    private ns: NotificationService
   ) {
     this._prescriptionsForm = new FormGroup({
       prescriptions: new FormControl(null, Validators.required)
@@ -106,13 +101,14 @@ export class ProfileComponent implements OnInit {
     ticket.prescriptions = this.prescriptionsForm.value.prescriptions;
     if (ticket.prescriptions) {
       this.patientTicketsService.save(ticket)
-        .subscribe((isSaved) => {
-          console.log(isSaved); // TODO notification for user
+        .subscribe(() => {
+          this.ns.info(`Назначения успешно сохранены для талона № ${ticket.id}`);
         }, (error) => {
+          this.ns.error(`Ошибка добавления назначений. Проверьте введенные данные.`);
           console.error(error);
         })
     } else {
-      alert("Введите назначения.");
+      this.ns.error("Поле не может быть пустым", 5);
     }
   }
 
@@ -120,19 +116,20 @@ export class ProfileComponent implements OnInit {
     let moment: Moment = this.dateTimeForm.value.dateTime;
     ticket.dateTime = moment.format("DD.MM.YYYY HH:mm");
     this.patientTicketsService.save(ticket)
-      .subscribe((isSaved) => {
-        console.log(isSaved); // TODO notification for user
+      .subscribe(() => {
+        this.ns.info("Время приема успешно изменено.");
       }, (error) => {
+        this.ns.error("Ошибка изменения времени приема. Проверьте введенные данные.");
         console.error(error);
       })
   }
 
   onCancelTicket(ticket: PatientTicket) {
     this.patientTicketsService.delete(ticket)
-      .subscribe((isDeleted) => {
-        console.log(`Ticket ${ticket} is deleted: ${isDeleted}`);
-        // TODO notification for user
+      .subscribe(() => {
+        this.ns.info(`Талон № ${ticket.id} успешно отменен.`);
       }, (error) => {
+        this.ns.error("Ошибка отмены записи на прием.");
         console.error(error);
       })
   }

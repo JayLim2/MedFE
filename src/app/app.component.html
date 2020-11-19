@@ -1,3 +1,5 @@
+<notification></notification>
+
 <ng-container *ngIf="healthChecker.loading; then loading"></ng-container>
 <ng-container *ngIf="!healthChecker.loading && !healthChecker.isServiceHealthy; then serviceUnavailable"></ng-container>
 <ng-container *ngIf="!healthChecker.loading && healthChecker.isServiceHealthy; then main"></ng-container>

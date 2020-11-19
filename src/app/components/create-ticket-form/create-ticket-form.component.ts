@@ -10,6 +10,7 @@ import {PatientTicketsService} from "../../../services/patient-tickets.service";
 import {IDatePickerConfig} from "ng2-date-picker";
 import {Moment} from "moment";
 import {Router} from "@angular/router";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
   selector: 'app-create-ticket-form',
@@ -48,7 +49,8 @@ export class CreateTicketFormComponent implements OnInit {
     private dateTimeService: DateTimeService,
     private authenticationService: AuthenticationService,
     private patientTicketsService: PatientTicketsService,
-    private router: Router
+    private router: Router,
+    private ns: NotificationService
   ) {
   }
 
@@ -138,8 +140,7 @@ export class CreateTicketFormComponent implements OnInit {
       .subscribe((saved) => {
         this.router.navigateByUrl('profile');
       }, (error) => {
-        console.error(error);
-        alert("Проверьте правильность введенных данных.");
+        this.ns.error("Ошибка при записи на прием к врачу. Проверьте введенные данные.");
       })
   }
 
