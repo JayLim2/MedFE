@@ -143,46 +143,6 @@
               >
                 {{ticket.prescriptions}}
               </popup>
-              <popup [type]="'form'"
-                     [popupTitle]="'Изменить время приема'"
-                     [buttonTitle]="'Изменить время приема'"
-                     [styles]="'available-width'"
-                     [formGroup]="dateTimeForm"
-                     (onSubmit)="onSaveDateTime(ticket)"
-              >
-                <div style="display: flex; flex-direction: column">
-                  Введите другое время приема:
-                  <div class="dp-date-wrapper">
-                    <div class="dp-date-input-container">
-                      <div class="dp-form-item">
-                        <dp-date-picker id="picker"
-                                        [config]="config"
-                                        [mode]="'daytime'"
-                                        [theme]="material ? 'dp-material dp-main' : 'dp-main'"
-                                        [displayDate]="displayDate"
-                                        [placeholder]="placeholder"
-                                        [formControlName]="'dateTime'"
-                        ></dp-date-picker>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div style="color: gray;margin:10px 0;">
-                  Если ячейка календаря выделена серым цветом, значит это выходной день,
-                  талоны закончились или врач не принимиает в выбранное время.
-                  <br/><br/>
-                  <a href="mailto:support@meduslugi.ru">Напишите нам</a>,
-                  если считаете, что время недоступно по ошибке.
-                </div>
-              </popup>
-              <popup [popupTitle]="'Отменить талон?'"
-                     [buttonTitle]="'Отменить талон'"
-                     [styles]="'reject-button available-width'"
-                     [type]="'confirm'"
-              >
-                Вы действительно хотите отменить талон?
-              </popup>
             </ng-container>
             <ng-container *ngSwitchCase="'DOCTOR'">
               <popup [type]="ticket.prescriptions ? 'info' : 'form'"
@@ -212,49 +172,49 @@
                   Внимание! Назначения невозможно отредактировать после сохранения.
                 </div>
               </popup>
-              <popup [type]="'form'"
-                     [popupTitle]="'Изменить время приема'"
-                     [buttonTitle]="'Изменить время приема'"
-                     [styles]="'available-width'"
-                     [formGroup]="dateTimeForm"
-                     (onSubmit)="onSaveDateTime(ticket)"
-              >
-                <div style="display: flex; flex-direction: column">
-                  Введите другое время приема:
-                  <div class="dp-date-wrapper">
-                    <div class="dp-date-input-container">
-                      <div class="dp-form-item">
-                        <dp-date-picker id="picker"
-                                        [config]="config"
-                                        [mode]="'daytime'"
-                                        [theme]="material ? 'dp-material dp-main' : 'dp-main'"
-                                        [displayDate]="displayDate"
-                                        [placeholder]="placeholder"
-                                        [formControlName]="'dateTime'"
-                        ></dp-date-picker>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div style="color: gray;margin:10px 0;">
-                  Если ячейка календаря выделена серым цветом, значит это выходной день,
-                  талоны закончились или врач не принимиает в выбранное время.
-                  <br/><br/>
-                  <a href="mailto:support@meduslugi.ru">Напишите нам</a>,
-                  если считаете, что время недоступно по ошибке.
-                </div>
-              </popup>
-              <popup [popupTitle]="'Отменить талон?'"
-                     [buttonTitle]="'Отменить талон'"
-                     [styles]="'reject-button available-width'"
-                     [type]="'confirm'"
-                     (onConfirm)="onCancelTicket(ticket)"
-              >
-                Вы действительно хотите отменить талон?
-              </popup>
             </ng-container>
           </ng-container>
+          <popup [type]="'form'"
+                 [popupTitle]="'Изменить время приема'"
+                 [buttonTitle]="'Изменить время приема'"
+                 [styles]="'available-width'"
+                 [formGroup]="dateTimeForm"
+                 (onSubmit)="onSaveDateTime(ticket)"
+          >
+            <div style="display: flex; flex-direction: column">
+              Введите другое время приема:
+              <div class="dp-date-wrapper">
+                <div class="dp-date-input-container">
+                  <div class="dp-form-item">
+                    <dp-date-picker id="picker"
+                                    [config]="config"
+                                    [mode]="'daytime'"
+                                    [theme]="material ? 'dp-material dp-main' : 'dp-main'"
+                                    [displayDate]="displayDate"
+                                    [placeholder]="placeholder"
+                                    [formControlName]="'dateTime'"
+                    ></dp-date-picker>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="color: gray;margin:10px 0;">
+              Если ячейка календаря выделена серым цветом, значит это выходной день,
+              талоны закончились или врач не принимиает в выбранное время.
+              <br/><br/>
+              <a href="mailto:support@meduslugi.ru">Напишите нам</a>,
+              если считаете, что время недоступно по ошибке.
+            </div>
+          </popup>
+          <popup [popupTitle]="'Отменить талон?'"
+                 [buttonTitle]="'Отменить талон'"
+                 [styles]="'reject-button available-width'"
+                 [type]="'confirm'"
+                 (onConfirm)="onCancelTicket(ticket)"
+          >
+            Вы действительно хотите отменить талон?
+          </popup>
         </div>
       </div>
     </div>

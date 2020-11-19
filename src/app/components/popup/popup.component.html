@@ -8,7 +8,7 @@
       <button type="button"
               class="close"
               aria-label="Close"
-              (click)="onClose(modal, 'reject')"
+              (click)="close(modal, 'reject')"
       >&times;</button>
     </div>
     <div class="modal-body">
@@ -18,11 +18,11 @@
       <!-- form window -->
       <button type="submit"
               class="btn btn-primary"
-              (click)="onClose(modal, 'submit')"
+              (click)="close(modal, 'submit')"
       >Сохранить</button>
       <button type="button"
               class="btn btn-dark"
-              (click)="onClose(modal, 'reject')"
+              (click)="close(modal, 'reject')"
       >Закрыть</button>
     </div>
   </form>
@@ -37,7 +37,7 @@
     <button type="button"
             class="close"
             aria-label="Close"
-            (click)="onClose(modal, 'reject')"
+            (click)="close(modal, 'reject')"
     >&times;</button>
   </div>
   <div class="modal-body">
@@ -56,18 +56,18 @@
       <!-- info window -->
       <ng-container *ngSwitchCase="'info'">
         <button type="button" class="btn btn-dark"
-                (click)="onClose(modal, 'reject')"
+                (click)="close(modal, 'reject')"
         >Закрыть
         </button>
       </ng-container>
       <!-- confirm window -->
       <ng-container *ngSwitchCase="'confirm'">
         <button type="button" class="btn btn-danger"
-                (click)="onClose(modal, 'approve')"
+                (click)="close(modal, 'approve')"
         >Хорошо
         </button>
         <button type="button" class="btn btn-primary"
-                (click)="onClose(modal, 'reject')"
+                (click)="close(modal, 'reject')"
         >Передумал
         </button>
       </ng-container>

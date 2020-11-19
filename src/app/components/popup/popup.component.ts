@@ -59,7 +59,7 @@ export class PopupComponent implements OnInit {
       });
   }
 
-  onClose(modal: any, event: string): void {
+  close(modal: any, event: string): void {
     switch (this.type) {
       case 'confirm':
         this.isApproved = event === 'approve';
