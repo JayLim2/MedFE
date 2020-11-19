@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {environment} from "../environments/environment.prod";
 
 interface Options {
   headers?: HttpHeaders | {
@@ -20,8 +21,7 @@ interface Options {
 })
 export class RestService {
 
-  static HOST: string = "localhost:7777";
-  static COMMON_URL: string = `http://${RestService.HOST}/`;
+  static COMMON_URL: string = environment.routes.host;
 
   constructor(
     private httpClient: HttpClient
