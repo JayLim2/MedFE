@@ -61,7 +61,7 @@
         <!-- for doctor -->
         <ng-container *ngSwitchCase="'DOCTOR'">
           <data-field [name]="'Специализация'"
-                      [value]="currentUser.specialization"
+                      [value]="currentUser.specialization.name"
           ></data-field>
           <data-field [name]="'Кабинет'"
                       [value]="currentUser.cabinet.name"
@@ -87,12 +87,24 @@
 
 <ng-template #tickets>
   <div>
-    Талоны, который оформил пациент или получил врач.
-    <button class="button medium"
-            style="width: 250px; margin-left: 20px"
-            routerLink="/tickets/create"
-    >Записаться на прием
-    </button>
+    <ng-container [ngSwitch]="currentUser.role">
+      <ng-container *ngSwitchCase="'PATIENT'">
+        Здесь вы можете посмотреть талоны, по которым записаны на прием к врачу.
+        <button class="button medium"
+                style="width: 250px; margin-left: 20px"
+                routerLink="/tickets/create"
+        >Записаться на прием
+        </button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'DOCTOR'">
+        Здесь вы можете посмотреть талоны на прием к Вам.
+        <br/>
+        <span style="font-size: 11pt; color: darkslateblue;">
+          Обратите внимание: чтобы записаться на прием, Вам нужно перезайти через
+          профиль пациента.
+        </span>
+      </ng-container>
+    </ng-container>
   </div>
 
   <div class="tickets">
@@ -108,7 +120,7 @@
                       [value]="[ticket.patient.lastName, ticket.patient.firstName, ticket.patient.middleName || ''].join(' ')"
           ></data-field>
           <data-field [name]="'Время приема'"
-                      [value]="ticket.datetime"
+                      [value]="ticket.dateTime"
           ></data-field>
           <data-field [name]="'Врач'"
                       [value]="[ticket.doctor.lastName, ticket.doctor.firstName, ticket.doctor.middleName || ''].join(' ')"
@@ -147,7 +159,8 @@
                     Если ячейка календаря выделена серым цветом, значит это выходной день,
                     талоны закончились или врач не принимиает в выбранное время.
                     <br/><br/>
-                    <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
+                    <a href="mailto:support@meduslugi.ru">Напишите нам</a>, если считаете, что время недоступно по
+                    ошибке.
                   </div>
                 </div>
                 <!---------->
@@ -161,10 +174,12 @@
               </popup>
             </ng-container>
             <ng-container *ngSwitchCase="'DOCTOR'">
-              <popup [popupTitle]="'Добавить назначения для пациента'"
+              <popup [type]="ticket.prescriptions ? 'info' : 'form'"
+                     [popupTitle]="'Добавить назначения для пациента'"
                      [buttonTitle]="ticket.prescriptions ? 'Назначения' : 'Добавить назначения'"
                      [styles]="'outline available-width'"
-                     [customButtons]="ticket.prescriptions ? [] : [savePrescriptionButton]"
+                     [formGroup]="prescriptionsForm"
+                     (onSubmit)="onSavePrescriptions(ticket)"
               >
                 <ng-container *ngIf="ticket.prescriptions; then readonlyPrescriptions else editablePrescriptions"
                 ></ng-container>
@@ -172,56 +187,51 @@
                   {{ticket.prescriptions}}
                 </ng-template>
                 <ng-template #editablePrescriptions>
-                  <form [formGroup]="prescriptionsForm"
-                        (ngSubmit)="onSavePrescriptions(ticket)"
-                  >
-                    <label style="width: 100%;">
-                      Введите назначения:
-                      <textarea class="input-control"
-                                style="width: 100%; height: 200px;"
-                                placeholder="Например, не употреблять в пищу жирное и жареное 3 месяца."
-                                [formControlName]="'prescriptions'"
-                      ></textarea>
-                    </label>
-                  </form>
+                  <label style="width: 100%;">
+                    Введите назначения:
+                    <textarea class="input-control"
+                              style="width: 100%; height: 200px;"
+                              placeholder="Например, не употреблять в пищу жирное и жареное 3 месяца."
+                              [formControlName]="'prescriptions'"
+                    ></textarea>
+                  </label>
                 </ng-template>
 
                 <div style="color: red; margin: 10px 0;">
                   Внимание! Назначения невозможно отредактировать после сохранения.
                 </div>
               </popup>
-              <popup [popupTitle]="'Изменить время приема'"
+              <popup [type]="'form'"
+                     [popupTitle]="'Изменить время приема'"
                      [buttonTitle]="'Изменить время приема'"
                      [styles]="'available-width'"
+                     [formGroup]="dateTimeForm"
+                     (onSubmit)="onSaveDateTime(ticket)"
               >
-                <!-- time -->
-                <form [formGroup]="dateTimeForm"
-                      (ngSubmit)="onSaveDateTime(ticket)"
-                >
-                  <div style="display: flex; flex-direction: column">
-                    Введите другое время приема:
-                    <div class="dp-date-wrapper">
-                      <div class="dp-date-input-container">
-                        <div class="dp-form-item">
-                          <dp-date-picker id="picker"
-                                          [config]="config"
-                                          [mode]="'daytime'"
-                                          [theme]="material ? 'dp-material dp-main' : 'dp-main'"
-                                          [displayDate]="displayDate"
-                                          [placeholder]="placeholder"
-                                          [formControlName]="'dateTime'"
-                          ></dp-date-picker>
-                        </div>
+                <div style="display: flex; flex-direction: column">
+                  Введите другое время приема:
+                  <div class="dp-date-wrapper">
+                    <div class="dp-date-input-container">
+                      <div class="dp-form-item">
+                        <dp-date-picker id="picker"
+                                        [config]="config"
+                                        [mode]="'daytime'"
+                                        [theme]="material ? 'dp-material dp-main' : 'dp-main'"
+                                        [displayDate]="displayDate"
+                                        [placeholder]="placeholder"
+                                        [formControlName]="'dateTime'"
+                        ></dp-date-picker>
                       </div>
                     </div>
                   </div>
-                </form>
+                </div>
 
                 <div style="color: gray;margin:10px 0;">
                   Если ячейка календаря выделена серым цветом, значит это выходной день,
                   талоны закончились или врач не принимиает в выбранное время.
                   <br/><br/>
-                  <a routerLink="support">Напишите нам</a>, если считаете, что время недоступно по ошибке.
+                  <a href="mailto:support@meduslugi.ru">Напишите нам</a>,
+                  если считаете, что время недоступно по ошибке.
                 </div>
                 <!---------->
               </popup>
@@ -229,7 +239,7 @@
                      [buttonTitle]="'Отменить талон'"
                      [styles]="'reject-button available-width'"
                      [type]="'confirm'"
-                     (onConfirm)="onCancelTicket($event)"
+                     (onConfirm)="onCancelTicket(ticket)"
               >
                 Вы действительно хотите отменить талон?
               </popup>

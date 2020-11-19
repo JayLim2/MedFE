@@ -9,6 +9,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {PatientTicketsService} from "../../../services/patient-tickets.service";
 import {IDatePickerConfig} from "ng2-date-picker";
 import {Moment} from "moment";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-ticket-form',
@@ -46,7 +47,8 @@ export class CreateTicketFormComponent implements OnInit {
     private overlayService: NgxSpinnerService,
     private dateTimeService: DateTimeService,
     private authenticationService: AuthenticationService,
-    private patientTicketsService: PatientTicketsService
+    private patientTicketsService: PatientTicketsService,
+    private router: Router
   ) {
   }
 
@@ -134,11 +136,11 @@ export class CreateTicketFormComponent implements OnInit {
     }
     this.patientTicketsService.save(patientTicket)
       .subscribe((saved) => {
-        console.log("Saved: ", saved);
+        this.router.navigateByUrl('profile');
       }, (error) => {
         console.error(error);
+        alert("Проверьте правильность введенных данных.");
       })
-    console.log("form: ", value);
   }
 
   private setDoctors(list: Doctor[] = []) {

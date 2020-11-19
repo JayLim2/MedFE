@@ -5,6 +5,6 @@ export class PatientTicket {
   id: number;
   patient: Patient;
   doctor: Doctor;
-  datetime: string;
+  dateTime: string;
   prescriptions?: string;
 }

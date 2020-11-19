@@ -9,6 +9,7 @@ import {Doctor} from "../../models/doctor.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IDatePickerConfig} from "ng2-date-picker";
 import {Moment} from "moment";
+import {tick} from "@angular/core/testing";
 
 @Component({
   selector: 'app-profile',
@@ -84,24 +85,6 @@ export class ProfileComponent implements OnInit {
             }, (error) => {
               console.error(error);
             });
-/*          switch (this.currentUser.role) {
-            case Role.ROLE_PATIENT:
-              this.patientTicketsService.getByPatient(this.currentUser as Patient)
-                .subscribe((tickets) => {
-                  this._patientTicketsList = tickets;
-                }, (error) => {
-                  console.error(error);
-                });
-              break;
-            case Role.ROLE_DOCTOR:
-              this.patientTicketsService.getByDoctor(this.currentUser as Doctor)
-                .subscribe((tickets) => {
-                  this._patientTicketsList = tickets;
-                }, (error) => {
-                  console.error(error);
-                });
-              break;
-          }*/
         }
       })
   }
@@ -121,16 +104,21 @@ export class ProfileComponent implements OnInit {
 
   onSavePrescriptions(ticket: PatientTicket) {
     ticket.prescriptions = this.prescriptionsForm.value.prescriptions;
-    this.patientTicketsService.save(ticket)
-      .subscribe((isSaved) => {
-        console.log(isSaved); // TODO notification for user
-      }, (error) => {
-        console.error(error);
-      })
+    if (ticket.prescriptions) {
+      this.patientTicketsService.save(ticket)
+        .subscribe((isSaved) => {
+          console.log(isSaved); // TODO notification for user
+        }, (error) => {
+          console.error(error);
+        })
+    } else {
+      alert("Введите назначения.");
+    }
   }
 
   onSaveDateTime(ticket: PatientTicket) {
-    ticket.datetime = this.prescriptionsForm.value.dateTime;
+    let moment: Moment = this.dateTimeForm.value.dateTime;
+    ticket.dateTime = moment.format("DD.MM.YYYY HH:mm");
     this.patientTicketsService.save(ticket)
       .subscribe((isSaved) => {
         console.log(isSaved); // TODO notification for user
@@ -140,10 +128,10 @@ export class ProfileComponent implements OnInit {
   }
 
   onCancelTicket(ticket: PatientTicket) {
-    console.log(1245)
     this.patientTicketsService.delete(ticket)
       .subscribe((isDeleted) => {
-        console.log(isDeleted); // TODO notification for user
+        console.log(`Ticket ${ticket} is deleted: ${isDeleted}`);
+        // TODO notification for user
       }, (error) => {
         console.error(error);
       })

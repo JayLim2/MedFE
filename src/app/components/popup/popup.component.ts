@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {FormGroup} from "@angular/forms";
 
 export class CustomButton {
   title: string;
@@ -26,10 +27,16 @@ export class PopupComponent implements OnInit {
   type: string = 'info';
   @Input()
   customButtons: CustomButton[] = [];
+  @Input()
+  formGroup: FormGroup;
+
   @Output()
   onConfirm: EventEmitter<any> = new EventEmitter();
+  @Output()
+  onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   isApproved: boolean = false;
+  isSubmitted: boolean = false;
 
   constructor(private modalService: NgbModal) {
   }
@@ -52,12 +59,19 @@ export class PopupComponent implements OnInit {
         this.isApproved = event === 'approve';
         if (this.isApproved) {
           console.log("Confirmed");
-          this.onConfirm.emit(null);
+          this.onConfirm.emit();
         } else {
           console.log("Rejected");
-          //this.onReject();
         }
         break;
+      case 'form':
+        this.isSubmitted = event === 'submit';
+        if (this.isSubmitted) {
+          console.log("Submitted");
+          this.onSubmit.emit();
+        } else {
+          console.log("Rejected");
+        }
       default:
         console.log("Closed");
     }
