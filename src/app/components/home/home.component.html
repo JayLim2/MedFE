@@ -1,26 +1,46 @@
 <div style="text-align: center; font-size: 40pt; margin: 50px;">
-  Мы знаем, зачем Вы пришли
+  Добро пожаловать
 </div>
 
 <ng-container *ngIf="userMessage; else unauthorizedUser">
+  <ng-container [ngSwitch]="user.role">
+    <ng-container *ngSwitchCase="'PATIENT'">
+      <ng-container *ngTemplateOutlet="patientUser"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'DOCTOR'">
+      <ng-container *ngTemplateOutlet="doctorUser"></ng-container>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #patientUser>
   <div style="margin:50px;font-size: 14pt; color: gray; text-align: center">
-    {{userMessage}}, нажмите на эту большую кнопку, чтобы записаться на прием
+    {{userMessage}}, нажмите на эту большую кнопку, чтобы записаться на прием к врачу
   </div>
 
   <div style="text-align: center">
     <button class="button big-orange-button"
             routerLink="tickets/create"
-    >
-      Записаться на прием
-    </button>
+    >Записаться на прием</button>
   </div>
-</ng-container>
+</ng-template>
+
+<ng-template #doctorUser>
+  <div style="margin:50px;font-size: 14pt; color: gray; text-align: center">
+    {{userMessage}}, нажмите на эту большую кнопку, чтобы перейти в личный кабинет
+  </div>
+
+  <div style="text-align: center">
+    <button class="button big-orange-button"
+            routerLink="profile"
+    >Личный кабинет</button>
+  </div>
+</ng-template>
+
 <ng-template #unauthorizedUser>
   <div style="text-align: center">
     <button class="button big-orange-button"
             routerLink="login"
-    >
-      Войти в личный кабинет
-    </button>
+    >Войти в личный кабинет</button>
   </div>
 </ng-template>

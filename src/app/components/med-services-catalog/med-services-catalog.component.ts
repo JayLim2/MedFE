@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {MedService} from "../../models/med-service.model";
 import {MedServicesService} from "../../../services/med-services.service";
 import {Doctor} from "../../models/doctor.model";
+import {NgxSpinnerService} from "ngx-spinner";
+import {DoctorsService} from "../../../services/doctors.service";
 
 @Component({
   selector: 'app-med-services-catalog',
@@ -13,19 +15,25 @@ export class MedServicesCatalogComponent implements OnInit {
   private _medServicesList: MedService[];
 
   constructor(
-    private medServicesService: MedServicesService
+    private medServicesService: MedServicesService,
+    private doctorsService: DoctorsService,
+    private overlayService: NgxSpinnerService
   ) { }
 
   get medServicesList(): MedService[] {
-    return this._medServicesList;
+    return this._medServicesList ? this._medServicesList : [];
   }
 
   ngOnInit(): void {
+    this.overlayService.show();
     this.medServicesService.getAll()
       .subscribe((data) => {
         this._medServicesList = data;
       }, (error) => {
         console.error(error);
+      })
+      .add(() => {
+        this.overlayService.hide();
       })
   }
 
@@ -33,20 +41,15 @@ export class MedServicesCatalogComponent implements OnInit {
     alert("Coming soon for: " + medServiceName);
   }
 
-  getDoctorsByMedService(medServiceName: string): any[] {
-    if(medServiceName === "Какая-то услуга") {
-      return [{
-        name: "Лечилов Иван Григорьевич",
-        specialization: "Врач общей практики",
-        cabinet: "1408"
-      }]
-    } else {
-      return [{
-        name: "Кирпиченко Цемент Стамесович",
-        specialization: "Терапевт/Кардиолог",
-        cabinet: "105"
-      }]
-    }
+  doctorsByMedService: Doctor[] = [];
+
+  getDoctorsByMedService(medServiceName: string) {
+    this.doctorsService.getByMedService(medServiceName)
+      .subscribe((doctors: Doctor[] = []) => {
+        this.doctorsByMedService = doctors;
+      }, (error) => {
+        console.error(error);
+      })
   }
 
 }

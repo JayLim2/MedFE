@@ -22,4 +22,8 @@ export class DoctorsService {
     return this.restService.get(`${this.commonUrl}/get/spec/${specializationName}`);
   }
 
+  public getByMedService(medServiceName: string): Observable<Doctor[]> {
+    return this.restService.get(`${this.commonUrl}/get/medService/${medServiceName}`)
+  }
+
 }

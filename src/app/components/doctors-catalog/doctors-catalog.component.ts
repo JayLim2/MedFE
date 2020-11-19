@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, UrlTree} from "@angular/router";
+import {Router} from "@angular/router";
 import {DoctorsService} from "../../../services/doctors.service";
 import {Doctor} from "../../models/doctor.model";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-doctors-catalog',
@@ -14,20 +15,25 @@ export class DoctorsCatalogComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private doctorsService: DoctorsService
+    private doctorsService: DoctorsService,
+    private overlayService: NgxSpinnerService
   ) {
   }
 
   get doctorsModel(): Doctor[] {
-    return this._doctorsModel;
+    return this._doctorsModel ? this._doctorsModel : [];
   }
 
   ngOnInit(): void {
+    this.overlayService.show();
     this.doctorsService.getAll()
       .subscribe((data) => {
         this._doctorsModel = data;
       }, (error) => {
         console.error(error);
+      })
+      .add(() => {
+        this.overlayService.hide();
       })
   }
 

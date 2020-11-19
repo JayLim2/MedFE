@@ -8,14 +8,17 @@ import {User} from "../../models/user.model";
 })
 export class HomeComponent implements OnInit {
 
-  userMessage: string
+  user: User;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    const user: User = JSON.parse(localStorage.getItem("currentUser"));
-    this.userMessage = user && user.phone && user.role ? `${user.phone}` : null;
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
+  }
+
+  get userMessage(): string {
+    return `${this.user.firstName}`;
   }
 
 }
