@@ -31,9 +31,14 @@ export class PopupComponent implements OnInit {
   formGroup: FormGroup;
 
   @Output()
+  onInit: EventEmitter<any> = new EventEmitter();
+  @Output()
+  onDestroy: EventEmitter<any> = new EventEmitter();
+
+  @Output()
   onConfirm: EventEmitter<any> = new EventEmitter();
   @Output()
-  onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  onSubmit: EventEmitter<any> = new EventEmitter();
 
   isApproved: boolean = false;
   isSubmitted: boolean = false;
@@ -45,6 +50,7 @@ export class PopupComponent implements OnInit {
   }
 
   open(content) {
+    this.onInit.emit();
     this.modalService
       .open(content, {ariaLabelledBy: 'modal-basic-title'})
       .result
@@ -73,6 +79,7 @@ export class PopupComponent implements OnInit {
           console.log("Rejected");
         }
       default:
+        this.onDestroy.emit();
         console.log("Closed");
     }
     modal.close();

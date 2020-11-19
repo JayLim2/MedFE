@@ -11,7 +11,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 })
 export class DoctorsCatalogComponent implements OnInit {
 
-  private _doctorsModel: Doctor[];
+  private _doctorsModel: Doctor[] = [];
 
   constructor(
     private router: Router,
@@ -21,7 +21,7 @@ export class DoctorsCatalogComponent implements OnInit {
   }
 
   get doctorsModel(): Doctor[] {
-    return this._doctorsModel ? this._doctorsModel : [];
+    return this._doctorsModel;
   }
 
   ngOnInit(): void {

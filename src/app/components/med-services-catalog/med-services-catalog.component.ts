@@ -12,7 +12,8 @@ import {DoctorsService} from "../../../services/doctors.service";
 })
 export class MedServicesCatalogComponent implements OnInit {
 
-  private _medServicesList: MedService[];
+  private _medServicesList: MedService[] = [];
+  public doctorsByMedService: Doctor[];
 
   constructor(
     private medServicesService: MedServicesService,
@@ -21,7 +22,7 @@ export class MedServicesCatalogComponent implements OnInit {
   ) { }
 
   get medServicesList(): MedService[] {
-    return this._medServicesList ? this._medServicesList : [];
+    return this._medServicesList;
   }
 
   ngOnInit(): void {
@@ -37,19 +38,21 @@ export class MedServicesCatalogComponent implements OnInit {
       })
   }
 
-  onShowDoctorsForMedService(medServiceName: string) {
-    alert("Coming soon for: " + medServiceName);
-  }
-
-  doctorsByMedService: Doctor[] = [];
-
   getDoctorsByMedService(medServiceName: string) {
+    this.overlayService.show();
     this.doctorsService.getByMedService(medServiceName)
-      .subscribe((doctors: Doctor[] = []) => {
+      .subscribe((doctors: Doctor[]) => {
         this.doctorsByMedService = doctors;
       }, (error) => {
         console.error(error);
       })
+      .add(() => {
+        this.overlayService.hide();
+      })
+  }
+
+  clearDoctorsByMedServiceName() {
+    this.doctorsByMedService = null;
   }
 
 }

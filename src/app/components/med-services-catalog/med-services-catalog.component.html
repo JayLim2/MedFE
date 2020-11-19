@@ -20,7 +20,8 @@
             <data-field [name]="'Описание'"
                         [value]="medService.description"
             ></data-field>
-            <data-field [name]="'Рекомендации'"
+            <data-field *ngIf="medService.recommendations"
+                        [name]="'Рекомендации'"
                         [value]="medService.recommendations"
             ></data-field>
             <data-field [name]="'Доступна'"
@@ -32,13 +33,25 @@
             <popup [popupTitle]="'Список врачей'"
                    [buttonTitle]="'Список врачей'"
                    [styles]="'available-width'"
+                   (onInit)="getDoctorsByMedService(medService.name)"
+                   (onDestroy)="clearDoctorsByMedServiceName()"
             >
-              Список врачей, оказывающих данную услугу:
-              <ul>
-                <li *ngFor="let doctor of doctorsByMedService">
-                  {{doctor.lastName + " " + doctor.firstName + " " + doctor.lastName}} ({{doctor.specialization + ", кабинет " + doctor.cabinet}})
-                </li>
-              </ul>
+              <ng-container *ngIf="doctorsByMedService">
+                <ng-container [ngSwitch]="doctorsByMedService.length">
+                  <ng-container *ngSwitchCase="0">
+                    К сожалению, мы никого не нашли.
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    Список врачей, оказывающих данную услугу:
+                    <ul>
+                      <li *ngFor="let doctor of doctorsByMedService">
+                        {{doctor.lastName + " " + doctor.firstName + " " + doctor.middleName}}
+                        ({{doctor.specialization.name + ", кабинет " + doctor.cabinet.name}})
+                      </li>
+                    </ul>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
             </popup>
           </div>
         </div>
