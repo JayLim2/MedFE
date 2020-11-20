@@ -2,20 +2,25 @@
   "name": "fe",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "prebuild": "setup-ng-alias",
+    "ng": "ng-alias",
+    "start": "ng-alias serve",
+    "build": "ng-alias build",
+    "test": "ng-alias test",
+    "lint": "ng-alias lint",
+    "e2e": "ng-alias e2e"
   },
   "private": true,
+  "config": {
+    "max_old_space_size": 300
+  },
   "dependencies": {
     "@angular/cli": "~9.1.6",
     "@angular/compiler-cli": "~9.1.7",
     "@angular-devkit/build-angular": "~0.901.6",
     "@angular-devkit/schematics": "~9.1.12",
     "typescript": "~3.8.3",
+    "angular-cli-alias": "1.0.9",
 
     "@angular/animations": "~9.1.7",
     "@angular/common": "~9.1.7",
