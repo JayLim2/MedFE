@@ -34,6 +34,14 @@
             "scripts": []
           },
           "configurations": {
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "src": "src/environments/environment.ts",
+                  "replaceWith": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -70,6 +78,10 @@
             "browserTarget": "FE:build"
           },
           "configurations": {
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "FE:build:hmr"
+            },
             "production": {
               "browserTarget": "FE:build:production"
             }

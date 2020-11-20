@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {environment} from "../environments/environment.prod";
+import {environment} from "../environments/environment.dev";
 
 interface Options {
   headers?: HttpHeaders | {
@@ -29,6 +29,7 @@ export class RestService {
   }
 
   public get(url: string, options?: Options): Observable<any> {
+    console.log(RestService.COMMON_URL + url);
     return this.httpClient.get(RestService.COMMON_URL + url, options);
   }
 

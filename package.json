@@ -2,29 +2,28 @@
   "name": "fe",
   "version": "0.0.0",
   "scripts": {
-    "prebuild": "setup-ng-alias",
-    "ng": "ng-alias",
-    "start": "ng-alias serve",
-    "build": "ng-alias build",
-    "test": "ng-alias test",
-    "lint": "ng-alias lint",
-    "e2e": "ng-alias e2e"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
-  "config": {
-    "max_old_space_size": 300
-  },
   "dependencies": {
-    "@angular/cli": "~9.1.6",
-    "@angular/compiler-cli": "~9.1.7",
     "@angular-devkit/build-angular": "~0.901.6",
     "@angular-devkit/schematics": "~9.1.12",
-    "typescript": "~3.8.3",
-    "angular-cli-alias": "1.0.9",
-
     "@angular/animations": "~9.1.7",
+    "@angular/cli": "~9.1.6",
     "@angular/common": "~9.1.7",
     "@angular/compiler": "~9.1.7",
+    "@angular/compiler-cli": "~9.1.7",
+    "gulp": "^4.0.2",
+    "gulp-inject": "^4.3.2",
+    "gulp-rename": "^1.2.3",
+    "gulp-rev": "^8.1.1",
+    "gulp-svgmin": "^1.2.4",
+    "gulp-svgstore": "^6.1.1",
     "@angular/core": "~9.1.7",
     "@angular/forms": "~9.1.7",
     "@angular/localize": "^9.1.12",
@@ -33,12 +32,13 @@
     "@angular/router": "~9.1.7",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "4.5.0",
+    "moment": "^2.24.0",
+    "ng2-date-picker": "10.0.1",
+    "ngx-spinner": "9.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "ngx-spinner": "9.0.1",
-    "ng2-date-picker": "10.0.1",
-    "moment": "^2.24.0"
+    "typescript": "~3.8.3",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.6",
