@@ -29,12 +29,17 @@ export class AuthenticationService {
   }
 
   login(login: string, password: string) {
+    let token = btoa(`${login}:${password}`)
     return this.http.get<any>(
-      `${environment.routes.api}/users/get/login/${login}`
+      `${environment.routes.api}/users/get/login/${login}`,
+      {
+        headers: {
+          Authorization: `Basic ${token}`
+        }
+      }
     ).pipe(map((user) => {
       if (user) {
         // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-        let token = window.btoa(login + ':' + password);
         localStorage.setItem('token', token);
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
