@@ -3,13 +3,19 @@
     Регистрация
   </div>
   <div class="page__content">
-    <form style="display: flex; flex-direction: column">
+    <form style="display: flex; flex-direction: column"
+          [formGroup]="registerForm"
+          (ngSubmit)="onRegister()"
+    >
       <div class="form-field">
         <div class="form-field__control-container">
           <div class="form-field__label_required">
             Мобильный телефон:
           </div>
-          <input type="tel" placeholder="+79001112233" />
+          <input type="tel"
+                 placeholder="+79001112233"
+                 formControlName="phone"
+          />
         </div>
 
         <div class="form-field__hint">
@@ -22,7 +28,10 @@
           <div class="form-field__label_required">
             Пароль:
           </div>
-          <input type="password" placeholder="Пароль" />
+          <input type="password"
+                 placeholder="Пароль"
+                 formControlName="password"
+          />
         </div>
       </div>
 
@@ -31,7 +40,10 @@
           <div class="form-field__label_required">
             Еще раз пароль:
           </div>
-          <input type="password" placeholder="Повторите пароль" />
+          <input type="password"
+                 placeholder="Повторите пароль"
+                 formControlName="verifyPassword"
+          />
         </div>
       </div>
 
@@ -40,7 +52,10 @@
           <div class="form-field__label">
             Контактный e-mail:
           </div>
-          <input type="email" placeholder="bigboss777@krutoemylo.ru" />
+          <input type="email"
+                 placeholder="bigboss777@krutoemylo.ru"
+                 formControlName="email"
+          />
         </div>
 
         <div class="form-field__hint">
@@ -53,7 +68,10 @@
           <div class="form-field__label_required">
             Фамилия:
           </div>
-          <input type="text" minlength="1" placeholder="Иванов" />
+          <input type="text"
+                 placeholder="Иванов"
+                 formControlName="lastName"
+          />
         </div>
       </div>
 
@@ -62,7 +80,10 @@
           <div class="form-field__label_required">
             Имя:
           </div>
-          <input type="text" minlength="1" placeholder="Иван" />
+          <input type="text"
+                 placeholder="Иван"
+                 formControlName="firstName"
+          />
         </div>
       </div>
 
@@ -71,7 +92,10 @@
           <div class="form-field__label">
             Отчество:
           </div>
-          <input type="text" minlength="1" placeholder="Иванович" />
+          <input type="text"
+                 placeholder="Иванович"
+                 formControlName="middleName"
+          />
         </div>
 
         <div class="form-field__hint">
@@ -84,7 +108,9 @@
           <div class="form-field__label_required">
             Дата рождения:
           </div>
-          <input type="date" />
+          <input type="date"
+                 formControlName="birthday"
+          />
         </div>
       </div>
 
@@ -93,7 +119,10 @@
           <div class="form-field__label_required">
             Полис ОМС:
           </div>
-          <input type="text" placeholder="0123456789012345" />
+          <input type="text"
+                 placeholder="0123456789012345"
+                 formControlName="insurancePolicyNumber"
+          />
         </div>
 
         <div class="form-field__hint">
@@ -109,9 +138,7 @@
         <button class="button medium"
                 type="submit"
                 style="width: 250px"
-        >
-          Зарегистрироваться
-        </button>
+        >Зарегистрироваться</button>
         <div class="info">
           Нажимая на кнопку "Зарегистрироваться", Вы разрешаете поликлинике
           обрабатывать Ваши персональные данные в соответствии с законом и
