@@ -15,6 +15,7 @@ export class User {
               firstName: string, lastName: string, middleName: string) {
 
     this.phone = phone;
+    this.password = password;
     this.email = email;
     this.role = role;
     this.firstName = firstName;
