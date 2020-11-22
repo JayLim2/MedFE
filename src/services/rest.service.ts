@@ -29,7 +29,6 @@ export class RestService {
   }
 
   public get(url: string, options?: Options): Observable<any> {
-    console.log(RestService.COMMON_URL + url);
     return this.httpClient.get(RestService.COMMON_URL + url, options);
   }
 

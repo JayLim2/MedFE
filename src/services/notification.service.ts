@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Notification} from "../app/models/notification.model";
 
 @Injectable({
@@ -38,5 +38,9 @@ export class NotificationService {
     if (index > -1) {
       this._notifications.splice(index, 1);
     }
+  }
+
+  public clear() {
+    this._notifications.splice(0, this._notifications.length);
   }
 }

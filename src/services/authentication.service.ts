@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from "../environments/environment.dev";
 import {map} from "rxjs/operators";
+import {NotificationService} from "./notification.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
@@ -13,7 +14,10 @@ export class AuthenticationService {
 
   public errorMessage: string = null;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private ns: NotificationService
+  ) {
     this.currentUserSubject = new BehaviorSubject<any>(
       JSON.parse(localStorage.getItem('currentUser'))
     );
@@ -34,8 +38,9 @@ export class AuthenticationService {
         localStorage.setItem('token', token);
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
+        this.ns.clear();
       } else {
-        this.showError("Неверно введен номер телефона или пароль.", 3);
+        this.ns.error("Неверно введен номер телефона или пароль.", 10);
       }
     }));
   }
@@ -47,14 +52,4 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
-  showError(message: string, timeout: number): void {
-    this.errorMessage = message;
-    setTimeout(() => {
-      this.hideError();
-    }, timeout * 1000);
-  }
-
-  hideError(): void {
-    this.errorMessage = null;
-  }
 }

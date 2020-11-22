@@ -132,13 +132,17 @@ export class ProfileComponent implements OnInit {
   }
 
   onCancelTicket(ticket: PatientTicket) {
-    this.patientTicketsService.delete(ticket)
-      .subscribe(() => {
-        this.ns.info(`Талон № ${ticket.id} успешно отменен.`);
-      }, (error) => {
-        this.ns.error("Ошибка отмены записи на прием.");
-        console.error(error);
-      })
+    let localIndex = this.patientTicketsList.indexOf(ticket);
+    if (localIndex > -1) {
+      this.patientTicketsList.splice(localIndex, 1);
+      this.patientTicketsService.delete(ticket)
+        .subscribe(() => {
+          this.ns.info(`Талон № ${ticket.id} успешно отменен.`);
+        }, (error) => {
+          this.ns.error("Ошибка отмены записи на прием.");
+          console.error(error);
+        })
+    }
   }
 
 }

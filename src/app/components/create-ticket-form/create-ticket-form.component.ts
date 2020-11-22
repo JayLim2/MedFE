@@ -9,6 +9,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {PatientTicketsService} from "../../../services/patient-tickets.service";
 import {IDatePickerConfig} from "ng2-date-picker";
 import {Moment} from "moment";
+import * as moment from "moment";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../../services/notification.service";
 
@@ -40,6 +41,11 @@ export class CreateTicketFormComponent implements OnInit {
   private _form: FormGroup;
 
   public loading: boolean = true;
+
+  public minDate: Moment | string;
+  public maxDate: Moment | string;
+  public minTime: Moment | string;
+  public maxTime: Moment | string;
 
   constructor(
     private specializationsService: SpecializationsService,
@@ -126,6 +132,11 @@ export class CreateTicketFormComponent implements OnInit {
   }
 
   onCreateTicket() {
+    if (this.form.invalid) {
+      this.ns.error("Что-то введено не так. Проверьте введенное время приема.");
+      return;
+    }
+
     const value = this.form.value;
     let patientTicket = {
       doctor: {
@@ -138,6 +149,7 @@ export class CreateTicketFormComponent implements OnInit {
     }
     this.patientTicketsService.save(patientTicket)
       .subscribe((saved) => {
+        this.ns.clear();
         this.router.navigateByUrl('profile');
       }, (error) => {
         this.ns.error("Ошибка при записи на прием к врачу. Проверьте введенные данные.");
@@ -150,7 +162,11 @@ export class CreateTicketFormComponent implements OnInit {
       this.form.get("doctor").setValue(list[0].id);
       //update available dates by doctor
       this.dateTimeService.getAvailableDates(list[0], new Date())
-        .subscribe((list: Date[] = []) => {
+        .subscribe((list: string[] = []) => {
+          this.minDate = moment(list[0].substring(0, 10), "YYYY-MM-DD");
+          this.maxDate = moment(list[list.length - 1].substring(0, 10), "YYYY-MM-DD");
+          this.minTime = moment("08:00", "HH:mm");
+          this.maxTime = moment("20:00", "HH:mm");
           this.setDates(list);
         }, (error) => {
           console.error(error);
