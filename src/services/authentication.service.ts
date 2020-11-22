@@ -29,22 +29,17 @@ export class AuthenticationService {
   }
 
   login(login: string, password: string) {
-    let token = btoa(`${login}:${password}`)
+    let token = window.btoa(login + ':' + password);
+    localStorage.setItem('token', token);
     return this.http.get<any>(
-      `${environment.routes.api}/users/get/login/${login}`,
-      {
-        headers: {
-          Authorization: `Basic ${token}`
-        }
-      }
+      `${environment.routes.api}/users/get/login/${login}`
     ).pipe(map((user) => {
       if (user) {
-        // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-        localStorage.setItem('token', token);
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         this.ns.clear();
       } else {
+        localStorage.removeItem('token');
         this.ns.error("Неверно введен номер телефона или пароль.", 10);
       }
     }));
