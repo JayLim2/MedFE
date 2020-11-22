@@ -10,7 +10,7 @@ import {PatientTicketsService} from "../../../services/patient-tickets.service";
 import {IDatePickerConfig} from "ng2-date-picker";
 import {Moment} from "moment";
 import * as moment from "moment";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NotificationService} from "../../../services/notification.service";
 
 @Component({
@@ -56,6 +56,7 @@ export class CreateTicketFormComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private patientTicketsService: PatientTicketsService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private ns: NotificationService
   ) {
   }
@@ -76,7 +77,17 @@ export class CreateTicketFormComponent implements OnInit {
     return this._form;
   }
 
+  public selectedDoctorId: number = null;
+
   ngOnInit(): void {
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        let doctorIdParam = Number.parseInt(params["doctorId"]);
+        if (!Number.isNaN(doctorIdParam)) {
+          this.selectedDoctorId = doctorIdParam;
+        }
+      })
+
     this.overlayService.show();
 
     this._form = new FormGroup({
@@ -159,7 +170,12 @@ export class CreateTicketFormComponent implements OnInit {
   private setDoctors(list: Doctor[] = []) {
     this._doctors = list;
     if (list.length > 0) {
-      this.form.get("doctor").setValue(list[0].id);
+      let i = 0;
+      if (this.selectedDoctorId) {
+        for (i; i < list.length && list[i].id !== this.selectedDoctorId; i++) {
+        }
+      }
+      this.form.get("doctor").setValue(list[i].id);
       //update available dates by doctor
       this.dateTimeService.getAvailableDates(list[0], new Date())
         .subscribe((list: string[] = []) => {
