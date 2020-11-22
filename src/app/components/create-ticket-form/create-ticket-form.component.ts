@@ -79,7 +79,7 @@ export class CreateTicketFormComponent implements OnInit {
       dateTime: new FormControl(null, Validators.required),
     })
 
-    this.specializationsService.getAll()
+    this.specializationsService.getAllAvailable()
       .subscribe((list: Specialization[] = []) => {
         this._specializations = [
           {name: this.defaultSpecialization},

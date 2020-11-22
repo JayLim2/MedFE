@@ -18,4 +18,8 @@ export class SpecializationsService {
     return this.restService.get(`${this.commonUrl}/get/all`);
   }
 
+  getAllAvailable(): Observable<Specialization[]> {
+    return this.restService.get(`${this.commonUrl}/get/allAvailable`);
+  }
+
 }
