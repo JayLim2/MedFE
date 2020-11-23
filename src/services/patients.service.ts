@@ -15,7 +15,6 @@ export class PatientsService {
   ) { }
 
   public register(patient: Patient): Observable<any> {
-    console.log(patient);
     return this.restService.put(`${this.commonUrl}/register`, patient);
   }
 

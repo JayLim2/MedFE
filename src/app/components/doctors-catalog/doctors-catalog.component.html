@@ -37,7 +37,8 @@
           </div>
 
           <div class="controls">
-            <button class="button medium"
+            <button *ngIf="isAuthenticated"
+                    class="button medium"
                     [ngClass]="'available-width'"
                     (click)="onCreatePatientTicket(doctor.id)"
             >Записаться на прием
